@@ -121,9 +121,9 @@ $symbol: '$' IDENTIFIER ('-' ORDINAL)?
 │                             FRAGMENT DEFINITIONS                             │
 └──────────────────────────────────────────────────────────────────────────────┘
 <!
-$SPACE: ' '+
-
 $IDENTIFIER: (LOWER | UPPER) (DIGIT | LOWER | UPPER)*
 
 $ORDINAL: ['1'..'9'] DIGIT*
+
+$SPACE: ' '+
 
