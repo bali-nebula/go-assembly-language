@@ -43,7 +43,6 @@ func (c *validatorClass_) Validator() ValidatorLike {
 		// Initialize the inherited aspects.
 		Methodical: ProcessorClass().Processor(),
 	}
-	instance.visitor_ = VisitorClass().Visitor(instance)
 	return instance
 }
 
@@ -58,7 +57,7 @@ func (v *validator_) GetClass() ValidatorClassLike {
 func (v *validator_) ValidateAssembly(
 	assembly ast.AssemblyLike,
 ) {
-	v.visitor_.VisitAssembly(assembly)
+	VisitorClass().Visitor(v).VisitAssembly(assembly)
 }
 
 // Methodical Methods
