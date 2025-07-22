@@ -127,7 +127,6 @@ func (v *validator_) validateToken(
 
 type validator_ struct {
 	// Declare the instance attributes.
-	visitor_ VisitorLike
 
 	// Declare the inherited aspects.
 	Methodical
