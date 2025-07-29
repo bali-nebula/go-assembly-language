@@ -73,9 +73,9 @@ $Pull: "PULL" Value
 
 $Value:
     "HANDLER"
+    "EXCEPTION"
     "COMPONENT"
     "RESULT"
-    "EXCEPTION"
 
 $Load: "LOAD" Component symbol
 

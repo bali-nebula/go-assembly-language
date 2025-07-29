@@ -822,12 +822,12 @@ func (v *visitor_) visitValue(
 	switch actual {
 	case "HANDLER":
 		v.processor_.ProcessDelimiter("HANDLER")
+	case "EXCEPTION":
+		v.processor_.ProcessDelimiter("EXCEPTION")
 	case "COMPONENT":
 		v.processor_.ProcessDelimiter("COMPONENT")
 	case "RESULT":
 		v.processor_.ProcessDelimiter("RESULT")
-	case "EXCEPTION":
-		v.processor_.ProcessDelimiter("EXCEPTION")
 	}
 }
 

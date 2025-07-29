@@ -1522,6 +1522,14 @@ func (v *parser_) parseValue() (
 		return
 	}
 
+	// Attempt to parse a single "EXCEPTION" delimiter.
+	delimiter, token, ok = v.parseDelimiter("EXCEPTION")
+	if ok {
+		// Found a single "EXCEPTION" delimiter.
+		value = ast.ValueClass().Value(delimiter)
+		return
+	}
+
 	// Attempt to parse a single "COMPONENT" delimiter.
 	delimiter, token, ok = v.parseDelimiter("COMPONENT")
 	if ok {
@@ -1534,14 +1542,6 @@ func (v *parser_) parseValue() (
 	delimiter, token, ok = v.parseDelimiter("RESULT")
 	if ok {
 		// Found a single "RESULT" delimiter.
-		value = ast.ValueClass().Value(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "EXCEPTION" delimiter.
-	delimiter, token, ok = v.parseDelimiter("EXCEPTION")
-	if ok {
-		// Found a single "EXCEPTION" delimiter.
 		value = ast.ValueClass().Value(delimiter)
 		return
 	}
@@ -1760,9 +1760,9 @@ var parserClassReference_ = &parserClass_{
 			"$Pull":     `"PULL" Value`,
 			"$Value": `
     "HANDLER"
+    "EXCEPTION"
     "COMPONENT"
-    "RESULT"
-    "EXCEPTION"`,
+    "RESULT"`,
 			"$Load": `"LOAD" Component symbol`,
 			"$Save": `"SAVE" Component symbol`,
 			"$Drop": `"DROP" Component symbol`,
