@@ -296,7 +296,7 @@ const (
 	// Define the regular expressions for each expression type.
 	comment_    = "(?:--[^" + control_ + "]*)"
 	count_      = "(?:[1-3])"
-	delimiter_  = "(?:WITH|VARIABLE|TO|SKIP|SEND|SAVE|RESULT|PUSH|PULL|ON|NOTE|NONE|MESSAGE|LOAD|LITERAL|JUMP|HANDLER|FALSE|EXCEPTION|EMPTY|DROP|DOCUMENT|CONTRACT|CONSTANT|COMPONENT|CALL|ARGUMENTS|ARGUMENT|:)"
+	delimiter_  = "(?:WITH|VARIABLE|TO|SKIP|SEND|SAVE|RESULT|PUSH|PULL|ON|NOTE|NONE|MESSAGE|LOAD|LITERAL|JUMP|HANDLER|FALSE|EXCEPTION|EMPTY|DROP|DRAFT|CONTRACT|CONSTANT|COMPONENT|CALL|ARGUMENTS|ARGUMENT|:)"
 	identifier_ = "(?:(" + lower_ + "|" + upper_ + ")(" + digit_ + "|" + lower_ + "|" + upper_ + ")*)"
 	label_      = "(?:((?:" + ordinal_ + ")\\.)+(?:" + identifier_ + "))"
 	newline_    = "(?:" + eol_ + ")"

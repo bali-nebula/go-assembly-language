@@ -419,10 +419,10 @@ func (v *parser_) parseComponent() (
 		return
 	}
 
-	// Attempt to parse a single "DOCUMENT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("DOCUMENT")
+	// Attempt to parse a single "DRAFT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("DRAFT")
 	if ok {
-		// Found a single "DOCUMENT" delimiter.
+		// Found a single "DRAFT" delimiter.
 		component = ast.ComponentClass().Component(delimiter)
 		return
 	}
@@ -604,10 +604,10 @@ func (v *parser_) parseDestination() (
 		return
 	}
 
-	// Attempt to parse a single "DOCUMENT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("DOCUMENT")
+	// Attempt to parse a single "CONTRACT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("CONTRACT")
 	if ok {
-		// Found a single "DOCUMENT" delimiter.
+		// Found a single "CONTRACT" delimiter.
 		destination = ast.DestinationClass().Destination(delimiter)
 		return
 	}
@@ -1768,7 +1768,7 @@ var parserClassReference_ = &parserClass_{
 			"$Drop": `"DROP" Component symbol`,
 			"$Component": `
     "VARIABLE"
-    "DOCUMENT"
+    "DRAFT"
     "CONTRACT"
     "MESSAGE"`,
 			"$Call":        `"CALL" symbol Cardinality?`,
@@ -1776,7 +1776,7 @@ var parserClassReference_ = &parserClass_{
 			"$Send":        `"SEND" symbol "TO" Destination Parameterized?`,
 			"$Destination": `
     "COMPONENT"
-    "DOCUMENT"`,
+    "CONTRACT"`,
 			"$Parameterized": `"WITH" "ARGUMENTS"`,
 		},
 	),

@@ -309,8 +309,8 @@ func (v *visitor_) visitComponent(
 	switch actual {
 	case "VARIABLE":
 		v.processor_.ProcessDelimiter("VARIABLE")
-	case "DOCUMENT":
-		v.processor_.ProcessDelimiter("DOCUMENT")
+	case "DRAFT":
+		v.processor_.ProcessDelimiter("DRAFT")
 	case "CONTRACT":
 		v.processor_.ProcessDelimiter("CONTRACT")
 	case "MESSAGE":
@@ -381,8 +381,8 @@ func (v *visitor_) visitDestination(
 	switch actual {
 	case "COMPONENT":
 		v.processor_.ProcessDelimiter("COMPONENT")
-	case "DOCUMENT":
-		v.processor_.ProcessDelimiter("DOCUMENT")
+	case "CONTRACT":
+		v.processor_.ProcessDelimiter("CONTRACT")
 	}
 }
 

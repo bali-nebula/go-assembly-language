@@ -37,21 +37,21 @@ PULL EXCEPTION
 4.Load:
 NOTE --Loads a value from the environment onto a stack.
 LOAD VARIABLE $variable
-LOAD DOCUMENT $citation
+LOAD DRAFT $citation
 LOAD CONTRACT $name
 LOAD MESSAGE $bag
 
 5.Save:
 NOTE --Saves the top value from a stack into the environment.
 SAVE VARIABLE $variable
-SAVE DOCUMENT $citation
+SAVE DRAFT $citation
 SAVE CONTRACT $name
 SAVE MESSAGE $bag
 
 6.Drop:
 NOTE --Drops a value from the environment.
 DROP VARIABLE $variable
-DROP DOCUMENT $citation
+DROP DRAFT $citation
 DROP CONTRACT $name
 DROP MESSAGE $message
 
@@ -66,5 +66,5 @@ CALL $range WITH 3 ARGUMENTS
 NOTE --Sends a message to a target component with optional arguments.
 SEND $getAncestry TO COMPONENT
 SEND $setParameter TO COMPONENT WITH ARGUMENTS
-SEND $getKeys TO DOCUMENT
-SEND $setAttribute TO DOCUMENT WITH ARGUMENTS
+SEND $getKeys TO CONTRACT
+SEND $setAttribute TO CONTRACT WITH ARGUMENTS

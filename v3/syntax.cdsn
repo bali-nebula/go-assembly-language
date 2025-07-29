@@ -85,7 +85,7 @@ $Drop: "DROP" Component symbol
 
 $Component:
     "VARIABLE"
-    "DOCUMENT"
+    "DRAFT"
     "CONTRACT"
     "MESSAGE"
 
@@ -97,7 +97,7 @@ $Send: "SEND" symbol "TO" Destination Parameterized?
 
 $Destination:
     "COMPONENT"
-    "DOCUMENT"
+    "CONTRACT"
 
 $Parameterized: "WITH" "ARGUMENTS"
 
