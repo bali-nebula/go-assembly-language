@@ -411,10 +411,10 @@ func (v *parser_) parseComponent() (
 ) {
 	var delimiter string
 
-	// Attempt to parse a single "VARIABLE" delimiter.
-	delimiter, token, ok = v.parseDelimiter("VARIABLE")
+	// Attempt to parse a single "CONTRACT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("CONTRACT")
 	if ok {
-		// Found a single "VARIABLE" delimiter.
+		// Found a single "CONTRACT" delimiter.
 		component = ast.ComponentClass().Component(delimiter)
 		return
 	}
@@ -427,10 +427,10 @@ func (v *parser_) parseComponent() (
 		return
 	}
 
-	// Attempt to parse a single "CONTRACT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("CONTRACT")
+	// Attempt to parse a single "VARIABLE" delimiter.
+	delimiter, token, ok = v.parseDelimiter("VARIABLE")
 	if ok {
-		// Found a single "CONTRACT" delimiter.
+		// Found a single "VARIABLE" delimiter.
 		component = ast.ComponentClass().Component(delimiter)
 		return
 	}
@@ -596,18 +596,18 @@ func (v *parser_) parseDestination() (
 ) {
 	var delimiter string
 
-	// Attempt to parse a single "COMPONENT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("COMPONENT")
-	if ok {
-		// Found a single "COMPONENT" delimiter.
-		destination = ast.DestinationClass().Destination(delimiter)
-		return
-	}
-
 	// Attempt to parse a single "CONTRACT" delimiter.
 	delimiter, token, ok = v.parseDelimiter("CONTRACT")
 	if ok {
 		// Found a single "CONTRACT" delimiter.
+		destination = ast.DestinationClass().Destination(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "COMPONENT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("COMPONENT")
+	if ok {
+		// Found a single "COMPONENT" delimiter.
 		destination = ast.DestinationClass().Destination(delimiter)
 		return
 	}
@@ -1767,16 +1767,16 @@ var parserClassReference_ = &parserClass_{
 			"$Save": `"SAVE" Component symbol`,
 			"$Drop": `"DROP" Component symbol`,
 			"$Component": `
-    "VARIABLE"
-    "DRAFT"
     "CONTRACT"
+    "DRAFT"
+    "VARIABLE"
     "MESSAGE"`,
 			"$Call":        `"CALL" symbol Cardinality?`,
 			"$Cardinality": `"WITH" count "ARGUMENTS"  ! The argument count is in the range [1..3].`,
 			"$Send":        `"SEND" symbol "TO" Destination Parameterized?`,
 			"$Destination": `
-    "COMPONENT"
-    "CONTRACT"`,
+    "CONTRACT"
+    "COMPONENT"`,
 			"$Parameterized": `"WITH" "ARGUMENTS"`,
 		},
 	),

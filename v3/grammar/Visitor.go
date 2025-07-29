@@ -307,12 +307,12 @@ func (v *visitor_) visitComponent(
 	// Visit the possible component literal values.
 	var actual = component.GetAny().(string)
 	switch actual {
-	case "VARIABLE":
-		v.processor_.ProcessDelimiter("VARIABLE")
-	case "DRAFT":
-		v.processor_.ProcessDelimiter("DRAFT")
 	case "CONTRACT":
 		v.processor_.ProcessDelimiter("CONTRACT")
+	case "DRAFT":
+		v.processor_.ProcessDelimiter("DRAFT")
+	case "VARIABLE":
+		v.processor_.ProcessDelimiter("VARIABLE")
 	case "MESSAGE":
 		v.processor_.ProcessDelimiter("MESSAGE")
 	}
@@ -379,10 +379,10 @@ func (v *visitor_) visitDestination(
 	// Visit the possible destination literal values.
 	var actual = destination.GetAny().(string)
 	switch actual {
-	case "COMPONENT":
-		v.processor_.ProcessDelimiter("COMPONENT")
 	case "CONTRACT":
 		v.processor_.ProcessDelimiter("CONTRACT")
+	case "COMPONENT":
+		v.processor_.ProcessDelimiter("COMPONENT")
 	}
 }
 

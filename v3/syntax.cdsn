@@ -84,9 +84,9 @@ $Save: "SAVE" Component symbol
 $Drop: "DROP" Component symbol
 
 $Component:
-    "VARIABLE"
-    "DRAFT"
     "CONTRACT"
+    "DRAFT"
+    "VARIABLE"
     "MESSAGE"
 
 $Call: "CALL" symbol Cardinality?
@@ -96,8 +96,8 @@ $Cardinality: "WITH" count "ARGUMENTS"  ! The argument count is in the range [1.
 $Send: "SEND" symbol "TO" Destination Parameterized?
 
 $Destination:
-    "COMPONENT"
     "CONTRACT"
+    "COMPONENT"
 
 $Parameterized: "WITH" "ARGUMENTS"
 
