@@ -68,12 +68,6 @@ func (v *validator_) ProcessComment(
 	v.validateToken(comment, CommentToken)
 }
 
-func (v *validator_) ProcessCount(
-	count string,
-) {
-	v.validateToken(count, CountToken)
-}
-
 func (v *validator_) ProcessLabel(
 	label string,
 ) {

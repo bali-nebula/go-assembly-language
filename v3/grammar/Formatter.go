@@ -67,12 +67,6 @@ func (v *formatter_) ProcessComment(
 	v.appendString(comment)
 }
 
-func (v *formatter_) ProcessCount(
-	count string,
-) {
-	v.appendString(count)
-}
-
 func (v *formatter_) ProcessDelimiter(
 	delimiter string,
 ) {
@@ -149,13 +143,6 @@ func (v *formatter_) PreprocessConditionally(
 	v.appendString(" ")
 }
 
-func (v *formatter_) ProcessConditionallySlot(
-	conditionally ast.ConditionallyLike,
-	slot_ uint,
-) {
-	v.appendString(" ")
-}
-
 func (v *formatter_) ProcessConstantSlot(
 	constant ast.ConstantLike,
 	slot_ uint,
@@ -190,7 +177,7 @@ func (v *formatter_) ProcessJumpSlot(
 	slot_ uint,
 ) {
 	switch slot_ {
-	case 1, 2:
+	case 1:
 		v.appendString(" ")
 	}
 }

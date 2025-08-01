@@ -315,10 +315,12 @@ func (v *parser_) parseCall() (
 
 	// Attempt to parse an optional Cardinality rule.
 	var optionalCardinality ast.CardinalityLike
-	optionalCardinality, _, ok = v.parseCardinality()
+	optionalCardinality, token, ok = v.parseCardinality()
 	if ok {
-		// No additional put backs allowed at this point.
-		tokens = nil
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
 	}
 
 	// Found a single Call rule.
@@ -337,70 +339,33 @@ func (v *parser_) parseCardinality() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var delimiter string
 
-	// Attempt to parse a single "WITH" literal.
-	var delimiter1 string
-	delimiter1, token, ok = v.parseDelimiter("WITH")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Cardinality rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Cardinality", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
+	// Attempt to parse a single "WITH 1 ARGUMENT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("WITH 1 ARGUMENT")
+	if ok {
+		// Found a single "WITH 1 ARGUMENT" delimiter.
+		cardinality = ast.CardinalityClass().Cardinality(delimiter)
+		return
 	}
 
-	// Attempt to parse a single count token.
-	var count string
-	count, token, ok = v.parseToken(CountToken)
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single count token.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Cardinality", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
+	// Attempt to parse a single "WITH 2 ARGUMENTS" delimiter.
+	delimiter, token, ok = v.parseDelimiter("WITH 2 ARGUMENTS")
+	if ok {
+		// Found a single "WITH 2 ARGUMENTS" delimiter.
+		cardinality = ast.CardinalityClass().Cardinality(delimiter)
+		return
 	}
 
-	// Attempt to parse a single "ARGUMENTS" literal.
-	var delimiter2 string
-	delimiter2, token, ok = v.parseDelimiter("ARGUMENTS")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Cardinality rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Cardinality", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
+	// Attempt to parse a single "WITH 3 ARGUMENTS" delimiter.
+	delimiter, token, ok = v.parseDelimiter("WITH 3 ARGUMENTS")
+	if ok {
+		// Found a single "WITH 3 ARGUMENTS" delimiter.
+		cardinality = ast.CardinalityClass().Cardinality(delimiter)
+		return
 	}
 
-	// Found a single Cardinality rule.
-	ok = true
-	v.remove(tokens)
-	cardinality = ast.CardinalityClass().Cardinality(
-		delimiter1,
-		count,
-		delimiter2,
-	)
+	// This is not a single Cardinality rule.
 	return
 }
 
@@ -447,92 +412,38 @@ func (v *parser_) parseComponent() (
 	return
 }
 
-func (v *parser_) parseCondition() (
-	condition ast.ConditionLike,
-	token TokenLike,
-	ok bool,
-) {
-	var delimiter string
-
-	// Attempt to parse a single "EMPTY" delimiter.
-	delimiter, token, ok = v.parseDelimiter("EMPTY")
-	if ok {
-		// Found a single "EMPTY" delimiter.
-		condition = ast.ConditionClass().Condition(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "NONE" delimiter.
-	delimiter, token, ok = v.parseDelimiter("NONE")
-	if ok {
-		// Found a single "NONE" delimiter.
-		condition = ast.ConditionClass().Condition(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "FALSE" delimiter.
-	delimiter, token, ok = v.parseDelimiter("FALSE")
-	if ok {
-		// Found a single "FALSE" delimiter.
-		condition = ast.ConditionClass().Condition(delimiter)
-		return
-	}
-
-	// This is not a single Condition rule.
-	return
-}
-
 func (v *parser_) parseConditionally() (
 	conditionally ast.ConditionallyLike,
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
-
-	// Attempt to parse a single "ON" literal.
 	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("ON")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Conditionally rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Conditionally", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
 
-	// Attempt to parse a single Condition rule.
-	var condition ast.ConditionLike
-	condition, token, ok = v.parseCondition()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Condition rule.
-		v.putBack(tokens)
+	// Attempt to parse a single "ON EMPTY" delimiter.
+	delimiter, token, ok = v.parseDelimiter("ON EMPTY")
+	if ok {
+		// Found a single "ON EMPTY" delimiter.
+		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
 		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Conditionally", token)
-		panic(message)
 	}
 
-	// Found a single Conditionally rule.
-	ok = true
-	v.remove(tokens)
-	conditionally = ast.ConditionallyClass().Conditionally(
-		delimiter,
-		condition,
-	)
+	// Attempt to parse a single "ON NONE" delimiter.
+	delimiter, token, ok = v.parseDelimiter("ON NONE")
+	if ok {
+		// Found a single "ON NONE" delimiter.
+		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "ON FALSE" delimiter.
+	delimiter, token, ok = v.parseDelimiter("ON FALSE")
+	if ok {
+		// Found a single "ON FALSE" delimiter.
+		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
+		return
+	}
+
+	// This is not a single Conditionally rule.
 	return
 }
 
@@ -791,27 +702,9 @@ func (v *parser_) parseJump() (
 ) {
 	var tokens = fra.List[TokenLike]()
 
-	// Attempt to parse a single "JUMP" literal.
-	var delimiter1 string
-	delimiter1, token, ok = v.parseDelimiter("JUMP")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Jump rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Jump", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single "TO" literal.
-	var delimiter2 string
-	delimiter2, token, ok = v.parseDelimiter("TO")
+	// Attempt to parse a single "JUMP TO" literal.
+	var delimiter string
+	delimiter, token, ok = v.parseDelimiter("JUMP TO")
 	if !ok {
 		if uti.IsDefined(tokens) {
 			// This is not a single Jump rule.
@@ -847,18 +740,19 @@ func (v *parser_) parseJump() (
 
 	// Attempt to parse an optional Conditionally rule.
 	var optionalConditionally ast.ConditionallyLike
-	optionalConditionally, _, ok = v.parseConditionally()
+	optionalConditionally, token, ok = v.parseConditionally()
 	if ok {
-		// No additional put backs allowed at this point.
-		tokens = nil
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
 	}
 
 	// Found a single Jump rule.
 	ok = true
 	v.remove(tokens)
 	jump = ast.JumpClass().Jump(
-		delimiter1,
-		delimiter2,
+		delimiter,
 		label,
 		optionalConditionally,
 	)
@@ -1051,27 +945,9 @@ func (v *parser_) parseParameterized() (
 ) {
 	var tokens = fra.List[TokenLike]()
 
-	// Attempt to parse a single "WITH" literal.
-	var delimiter1 string
-	delimiter1, token, ok = v.parseDelimiter("WITH")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Parameterized rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Parameterized", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single "ARGUMENTS" literal.
-	var delimiter2 string
-	delimiter2, token, ok = v.parseDelimiter("ARGUMENTS")
+	// Attempt to parse a single "WITH ARGUMENTS" literal.
+	var delimiter string
+	delimiter, token, ok = v.parseDelimiter("WITH ARGUMENTS")
 	if !ok {
 		if uti.IsDefined(tokens) {
 			// This is not a single Parameterized rule.
@@ -1090,10 +966,7 @@ func (v *parser_) parseParameterized() (
 	// Found a single Parameterized rule.
 	ok = true
 	v.remove(tokens)
-	parameterized = ast.ParameterizedClass().Parameterized(
-		delimiter1,
-		delimiter2,
-	)
+	parameterized = ast.ParameterizedClass().Parameterized(delimiter)
 	return
 }
 
@@ -1739,14 +1612,13 @@ var parserClassReference_ = &parserClass_{
     Drop
     Call
     Send`,
-			"$Note":          `"NOTE" comment`,
-			"$Skip":          `"SKIP"`,
-			"$Jump":          `"JUMP" "TO" label Conditionally?`,
-			"$Conditionally": `"ON" Condition`,
-			"$Condition": `
-    "EMPTY"
-    "NONE"
-    "FALSE"`,
+			"$Note": `"NOTE" comment`,
+			"$Skip": `"SKIP"`,
+			"$Jump": `"JUMP TO" label Conditionally?`,
+			"$Conditionally": `
+    "ON EMPTY"
+    "ON NONE"
+    "ON FALSE"`,
 			"$Push": `"PUSH" Source`,
 			"$Source": `
     Handler
@@ -1771,13 +1643,16 @@ var parserClassReference_ = &parserClass_{
     "DRAFT"
     "VARIABLE"
     "MESSAGE"`,
-			"$Call":        `"CALL" symbol Cardinality?`,
-			"$Cardinality": `"WITH" count "ARGUMENTS"  ! The argument count is in the range [1..3].`,
-			"$Send":        `"SEND" symbol "TO" Destination Parameterized?`,
+			"$Call": `"CALL" symbol Cardinality?`,
+			"$Cardinality": `
+    "WITH 1 ARGUMENT"
+    "WITH 2 ARGUMENTS"
+    "WITH 3 ARGUMENTS"`,
+			"$Send": `"SEND" symbol "TO" Destination Parameterized?`,
 			"$Destination": `
     "CONTRACT"
     "COMPONENT"`,
-			"$Parameterized": `"WITH" "ARGUMENTS"`,
+			"$Parameterized": `"WITH ARGUMENTS"`,
 		},
 	),
 }

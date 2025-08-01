@@ -36,24 +36,14 @@ func CardinalityClass() CardinalityClassLike {
 // Constructor Methods
 
 func (c *cardinalityClass_) Cardinality(
-	delimiter1 string,
-	count string,
-	delimiter2 string,
+	any_ any,
 ) CardinalityLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(count) {
-		panic("The \"count\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
 	var instance = &cardinality_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		count_:      count,
-		delimiter2_: delimiter2,
+		any_: any_,
 	}
 	return instance
 }
@@ -68,16 +58,8 @@ func (v *cardinality_) GetClass() CardinalityClassLike {
 
 // Attribute Methods
 
-func (v *cardinality_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *cardinality_) GetCount() string {
-	return v.count_
-}
-
-func (v *cardinality_) GetDelimiter2() string {
-	return v.delimiter2_
+func (v *cardinality_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
@@ -86,9 +68,7 @@ func (v *cardinality_) GetDelimiter2() string {
 
 type cardinality_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	count_      string
-	delimiter2_ string
+	any_ any
 }
 
 // Class Structure

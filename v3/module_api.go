@@ -47,7 +47,6 @@ type (
 	CallClassLike          = ast.CallClassLike
 	CardinalityClassLike   = ast.CardinalityClassLike
 	ComponentClassLike     = ast.ComponentClassLike
-	ConditionClassLike     = ast.ConditionClassLike
 	ConditionallyClassLike = ast.ConditionallyClassLike
 	ConstantClassLike      = ast.ConstantClassLike
 	DestinationClassLike   = ast.DestinationClassLike
@@ -76,7 +75,6 @@ type (
 	CallLike          = ast.CallLike
 	CardinalityLike   = ast.CardinalityLike
 	ComponentLike     = ast.ComponentLike
-	ConditionLike     = ast.ConditionLike
 	ConditionallyLike = ast.ConditionallyLike
 	ConstantLike      = ast.ConstantLike
 	DestinationLike   = ast.DestinationLike
@@ -107,7 +105,6 @@ type (
 const (
 	ErrorToken     = gra.ErrorToken
 	CommentToken   = gra.CommentToken
-	CountToken     = gra.CountToken
 	DelimiterToken = gra.DelimiterToken
 	LabelToken     = gra.LabelToken
 	NewlineToken   = gra.NewlineToken
@@ -203,14 +200,10 @@ func CardinalityClass() CardinalityClassLike {
 }
 
 func Cardinality(
-	delimiter1 string,
-	count string,
-	delimiter2 string,
+	any_ any,
 ) CardinalityLike {
 	return CardinalityClass().Cardinality(
-		delimiter1,
-		count,
-		delimiter2,
+		any_,
 	)
 }
 
@@ -226,29 +219,15 @@ func Component(
 	)
 }
 
-func ConditionClass() ConditionClassLike {
-	return ast.ConditionClass()
-}
-
-func Condition(
-	any_ any,
-) ConditionLike {
-	return ConditionClass().Condition(
-		any_,
-	)
-}
-
 func ConditionallyClass() ConditionallyClassLike {
 	return ast.ConditionallyClass()
 }
 
 func Conditionally(
-	delimiter string,
-	condition ast.ConditionLike,
+	any_ any,
 ) ConditionallyLike {
 	return ConditionallyClass().Conditionally(
-		delimiter,
-		condition,
+		any_,
 	)
 }
 
@@ -327,14 +306,12 @@ func JumpClass() JumpClassLike {
 }
 
 func Jump(
-	delimiter1 string,
-	delimiter2 string,
+	delimiter string,
 	label string,
 	optionalConditionally ast.ConditionallyLike,
 ) JumpLike {
 	return JumpClass().Jump(
-		delimiter1,
-		delimiter2,
+		delimiter,
 		label,
 		optionalConditionally,
 	)
@@ -389,12 +366,10 @@ func ParameterizedClass() ParameterizedClassLike {
 }
 
 func Parameterized(
-	delimiter1 string,
-	delimiter2 string,
+	delimiter string,
 ) ParameterizedLike {
 	return ParameterizedClass().Parameterized(
-		delimiter1,
-		delimiter2,
+		delimiter,
 	)
 }
 

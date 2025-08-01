@@ -57,11 +57,6 @@ func (v *processor_) ProcessComment(
 ) {
 }
 
-func (v *processor_) ProcessCount(
-	count string,
-) {
-}
-
 func (v *processor_) ProcessDelimiter(
 	delimiter string,
 ) {
@@ -208,26 +203,6 @@ func (v *processor_) PostprocessComponent(
 
 func (v *processor_) ProcessComponentSlot(
 	component ast.ComponentLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PreprocessCondition(
-	condition ast.ConditionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessCondition(
-	condition ast.ConditionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessConditionSlot(
-	condition ast.ConditionLike,
 	slot_ uint,
 ) {
 }

@@ -58,7 +58,6 @@ type TokenType uint8
 const (
 	ErrorToken TokenType = iota
 	CommentToken
-	CountToken
 	DelimiterToken
 	LabelToken
 	NewlineToken
@@ -278,9 +277,6 @@ type Methodical interface {
 	ProcessComment(
 		comment string,
 	)
-	ProcessCount(
-		count string,
-	)
 	ProcessDelimiter(
 		delimiter string,
 	)
@@ -381,20 +377,6 @@ type Methodical interface {
 	)
 	ProcessComponentSlot(
 		component ast.ComponentLike,
-		slot_ uint,
-	)
-	PreprocessCondition(
-		condition ast.ConditionLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessCondition(
-		condition ast.ConditionLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessConditionSlot(
-		condition ast.ConditionLike,
 		slot_ uint,
 	)
 	PreprocessConditionally(

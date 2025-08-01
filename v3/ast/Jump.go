@@ -36,24 +36,19 @@ func JumpClass() JumpClassLike {
 // Constructor Methods
 
 func (c *jumpClass_) Jump(
-	delimiter1 string,
-	delimiter2 string,
+	delimiter string,
 	label string,
 	optionalConditionally ConditionallyLike,
 ) JumpLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
+	if uti.IsUndefined(delimiter) {
+		panic("The \"delimiter\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(label) {
 		panic("The \"label\" attribute is required by this class.")
 	}
 	var instance = &jump_{
 		// Initialize the instance attributes.
-		delimiter1_:            delimiter1,
-		delimiter2_:            delimiter2,
+		delimiter_:             delimiter,
 		label_:                 label,
 		optionalConditionally_: optionalConditionally,
 	}
@@ -70,12 +65,8 @@ func (v *jump_) GetClass() JumpClassLike {
 
 // Attribute Methods
 
-func (v *jump_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *jump_) GetDelimiter2() string {
-	return v.delimiter2_
+func (v *jump_) GetDelimiter() string {
+	return v.delimiter_
 }
 
 func (v *jump_) GetLabel() string {
@@ -92,8 +83,7 @@ func (v *jump_) GetOptionalConditionally() ConditionallyLike {
 
 type jump_ struct {
 	// Declare the instance attributes.
-	delimiter1_            string
-	delimiter2_            string
+	delimiter_             string
 	label_                 string
 	optionalConditionally_ ConditionallyLike
 }

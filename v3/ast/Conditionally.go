@@ -36,19 +36,14 @@ func ConditionallyClass() ConditionallyClassLike {
 // Constructor Methods
 
 func (c *conditionallyClass_) Conditionally(
-	delimiter string,
-	condition ConditionLike,
+	any_ any,
 ) ConditionallyLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(condition) {
-		panic("The \"condition\" attribute is required by this class.")
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
 	var instance = &conditionally_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
-		condition_: condition,
+		any_: any_,
 	}
 	return instance
 }
@@ -63,12 +58,8 @@ func (v *conditionally_) GetClass() ConditionallyClassLike {
 
 // Attribute Methods
 
-func (v *conditionally_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *conditionally_) GetCondition() ConditionLike {
-	return v.condition_
+func (v *conditionally_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
@@ -77,8 +68,7 @@ func (v *conditionally_) GetCondition() ConditionLike {
 
 type conditionally_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
-	condition_ ConditionLike
+	any_ any
 }
 
 // Class Structure

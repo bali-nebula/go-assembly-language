@@ -106,9 +106,7 @@ supported by each concrete cardinality-like class.
 type CardinalityClassLike interface {
 	// Constructor Methods
 	Cardinality(
-		delimiter1 string,
-		count string,
-		delimiter2 string,
+		any_ any,
 	) CardinalityLike
 }
 
@@ -125,18 +123,6 @@ type ComponentClassLike interface {
 }
 
 /*
-ConditionClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete condition-like class.
-*/
-type ConditionClassLike interface {
-	// Constructor Methods
-	Condition(
-		any_ any,
-	) ConditionLike
-}
-
-/*
 ConditionallyClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete conditionally-like class.
@@ -144,8 +130,7 @@ supported by each concrete conditionally-like class.
 type ConditionallyClassLike interface {
 	// Constructor Methods
 	Conditionally(
-		delimiter string,
-		condition ConditionLike,
+		any_ any,
 	) ConditionallyLike
 }
 
@@ -222,8 +207,7 @@ supported by each concrete jump-like class.
 type JumpClassLike interface {
 	// Constructor Methods
 	Jump(
-		delimiter1 string,
-		delimiter2 string,
+		delimiter string,
 		label string,
 		optionalConditionally ConditionallyLike,
 	) JumpLike
@@ -277,8 +261,7 @@ supported by each concrete parameterized-like class.
 type ParameterizedClassLike interface {
 	// Constructor Methods
 	Parameterized(
-		delimiter1 string,
-		delimiter2 string,
+		delimiter string,
 	) ParameterizedLike
 }
 
@@ -454,9 +437,7 @@ type CardinalityLike interface {
 	GetClass() CardinalityClassLike
 
 	// Attribute Methods
-	GetDelimiter1() string
-	GetCount() string
-	GetDelimiter2() string
+	GetAny() any
 }
 
 /*
@@ -473,19 +454,6 @@ type ComponentLike interface {
 }
 
 /*
-ConditionLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete condition-like class.
-*/
-type ConditionLike interface {
-	// Principal Methods
-	GetClass() ConditionClassLike
-
-	// Attribute Methods
-	GetAny() any
-}
-
-/*
 ConditionallyLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete conditionally-like class.
@@ -495,8 +463,7 @@ type ConditionallyLike interface {
 	GetClass() ConditionallyClassLike
 
 	// Attribute Methods
-	GetDelimiter() string
-	GetCondition() ConditionLike
+	GetAny() any
 }
 
 /*
@@ -579,8 +546,7 @@ type JumpLike interface {
 	GetClass() JumpClassLike
 
 	// Attribute Methods
-	GetDelimiter1() string
-	GetDelimiter2() string
+	GetDelimiter() string
 	GetLabel() string
 	GetOptionalConditionally() ConditionallyLike
 }
@@ -638,8 +604,7 @@ type ParameterizedLike interface {
 	GetClass() ParameterizedClassLike
 
 	// Attribute Methods
-	GetDelimiter1() string
-	GetDelimiter2() string
+	GetDelimiter() string
 }
 
 /*

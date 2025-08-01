@@ -281,24 +281,16 @@ func (v *visitor_) visitCall(
 func (v *visitor_) visitCardinality(
 	cardinality ast.CardinalityLike,
 ) {
-	var delimiter1 = cardinality.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessCardinalitySlot(
-		cardinality,
-		1,
-	)
-
-	var count = cardinality.GetCount()
-	v.processor_.ProcessCount(count)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessCardinalitySlot(
-		cardinality,
-		2,
-	)
-
-	var delimiter2 = cardinality.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
+	// Visit the possible cardinality literal values.
+	var actual = cardinality.GetAny().(string)
+	switch actual {
+	case "WITH 1 ARGUMENT":
+		v.processor_.ProcessDelimiter("WITH 1 ARGUMENT")
+	case "WITH 2 ARGUMENTS":
+		v.processor_.ProcessDelimiter("WITH 2 ARGUMENTS")
+	case "WITH 3 ARGUMENTS":
+		v.processor_.ProcessDelimiter("WITH 3 ARGUMENTS")
+	}
 }
 
 func (v *visitor_) visitComponent(
@@ -318,44 +310,19 @@ func (v *visitor_) visitComponent(
 	}
 }
 
-func (v *visitor_) visitCondition(
-	condition ast.ConditionLike,
-) {
-	// Visit the possible condition literal values.
-	var actual = condition.GetAny().(string)
-	switch actual {
-	case "EMPTY":
-		v.processor_.ProcessDelimiter("EMPTY")
-	case "NONE":
-		v.processor_.ProcessDelimiter("NONE")
-	case "FALSE":
-		v.processor_.ProcessDelimiter("FALSE")
-	}
-}
-
 func (v *visitor_) visitConditionally(
 	conditionally ast.ConditionallyLike,
 ) {
-	var delimiter = conditionally.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessConditionallySlot(
-		conditionally,
-		1,
-	)
-
-	var condition = conditionally.GetCondition()
-	v.processor_.PreprocessCondition(
-		condition,
-		1,
-		1,
-	)
-	v.visitCondition(condition)
-	v.processor_.PostprocessCondition(
-		condition,
-		1,
-		1,
-	)
+	// Visit the possible conditionally literal values.
+	var actual = conditionally.GetAny().(string)
+	switch actual {
+	case "ON EMPTY":
+		v.processor_.ProcessDelimiter("ON EMPTY")
+	case "ON NONE":
+		v.processor_.ProcessDelimiter("ON NONE")
+	case "ON FALSE":
+		v.processor_.ProcessDelimiter("ON FALSE")
+	}
 }
 
 func (v *visitor_) visitConstant(
@@ -474,28 +441,20 @@ func (v *visitor_) visitInstruction(
 func (v *visitor_) visitJump(
 	jump ast.JumpLike,
 ) {
-	var delimiter1 = jump.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
+	var delimiter = jump.GetDelimiter()
+	v.processor_.ProcessDelimiter(delimiter)
 	// Visit slot 1 between terms.
 	v.processor_.ProcessJumpSlot(
 		jump,
 		1,
 	)
 
-	var delimiter2 = jump.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
+	var label = jump.GetLabel()
+	v.processor_.ProcessLabel(label)
 	// Visit slot 2 between terms.
 	v.processor_.ProcessJumpSlot(
 		jump,
 		2,
-	)
-
-	var label = jump.GetLabel()
-	v.processor_.ProcessLabel(label)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessJumpSlot(
-		jump,
-		3,
 	)
 
 	var optionalConditionally = jump.GetOptionalConditionally()
@@ -580,16 +539,8 @@ func (v *visitor_) visitNote(
 func (v *visitor_) visitParameterized(
 	parameterized ast.ParameterizedLike,
 ) {
-	var delimiter1 = parameterized.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessParameterizedSlot(
-		parameterized,
-		1,
-	)
-
-	var delimiter2 = parameterized.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
+	var delimiter = parameterized.GetDelimiter()
+	v.processor_.ProcessDelimiter(delimiter)
 }
 
 func (v *visitor_) visitPrefix(

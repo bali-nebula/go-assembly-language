@@ -36,19 +36,14 @@ func ParameterizedClass() ParameterizedClassLike {
 // Constructor Methods
 
 func (c *parameterizedClass_) Parameterized(
-	delimiter1 string,
-	delimiter2 string,
+	delimiter string,
 ) ParameterizedLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
+	if uti.IsUndefined(delimiter) {
+		panic("The \"delimiter\" attribute is required by this class.")
 	}
 	var instance = &parameterized_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		delimiter2_: delimiter2,
+		delimiter_: delimiter,
 	}
 	return instance
 }
@@ -63,12 +58,8 @@ func (v *parameterized_) GetClass() ParameterizedClassLike {
 
 // Attribute Methods
 
-func (v *parameterized_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *parameterized_) GetDelimiter2() string {
-	return v.delimiter2_
+func (v *parameterized_) GetDelimiter() string {
+	return v.delimiter_
 }
 
 // PROTECTED INTERFACE
@@ -77,8 +68,7 @@ func (v *parameterized_) GetDelimiter2() string {
 
 type parameterized_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	delimiter2_ string
+	delimiter_ string
 }
 
 // Class Structure

@@ -202,9 +202,8 @@ loop:
 	for v.next_ < uint(len(v.runes_)) {
 		switch {
 		// Find the next token type.
-		case v.foundToken(LabelToken):
-		case v.foundToken(CountToken):
 		case v.foundToken(CommentToken):
+		case v.foundToken(LabelToken):
 		case v.foundToken(QuotedToken):
 		case v.foundToken(SymbolToken):
 		case v.foundToken(SpaceToken):
@@ -251,7 +250,6 @@ var scannerClassReference_ = &scannerClass_{
 			// Define token identifiers for each type of expression.
 			ErrorToken:     "error",
 			CommentToken:   "comment",
-			CountToken:     "count",
 			DelimiterToken: "delimiter",
 			LabelToken:     "label",
 			NewlineToken:   "newline",
@@ -264,7 +262,6 @@ var scannerClassReference_ = &scannerClass_{
 		map[TokenType]*reg.Regexp{
 			// Define pattern matchers for each type of expression.
 			CommentToken:   reg.MustCompile("^" + comment_),
-			CountToken:     reg.MustCompile("^" + count_),
 			DelimiterToken: reg.MustCompile("^" + delimiter_),
 			LabelToken:     reg.MustCompile("^" + label_),
 			NewlineToken:   reg.MustCompile("^" + newline_),
@@ -295,8 +292,7 @@ const (
 
 	// Define the regular expressions for each expression type.
 	comment_    = "(?:--[^" + control_ + "]*)"
-	count_      = "(?:[1-3])"
-	delimiter_  = "(?:WITH|VARIABLE|TO|SKIP|SEND|SAVE|RESULT|PUSH|PULL|ON|NOTE|NONE|MESSAGE|LOAD|LITERAL|JUMP|HANDLER|FALSE|EXCEPTION|EMPTY|DROP|DRAFT|CONTRACT|CONSTANT|COMPONENT|CALL|ARGUMENTS|ARGUMENT|:)"
+	delimiter_  = "(?:WITH ARGUMENTS|WITH 3 ARGUMENTS|WITH 2 ARGUMENTS|WITH 1 ARGUMENT|VARIABLE|TO|SKIP|SEND|SAVE|RESULT|PUSH|PULL|ON NONE|ON FALSE|ON EMPTY|NOTE|MESSAGE|LOAD|LITERAL|JUMP TO|HANDLER|EXCEPTION|DROP|DRAFT|CONTRACT|CONSTANT|COMPONENT|CALL|ARGUMENT|:)"
 	identifier_ = "(?:(" + lower_ + "|" + upper_ + ")(" + digit_ + "|" + lower_ + "|" + upper_ + ")*)"
 	label_      = "(?:((?:" + ordinal_ + ")\\.)+(?:" + identifier_ + "))"
 	newline_    = "(?:" + eol_ + ")"
