@@ -297,7 +297,7 @@ const (
 	label_      = "(?:((?:" + ordinal_ + ")\\.)+(?:" + identifier_ + "))"
 	newline_    = "(?:" + eol_ + ")"
 	ordinal_    = "(?:[1-9]" + digit_ + "*)"
-	quoted_     = "(?:`>" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*<`)"
+	quoted_     = "(?:`(\\\\`|[^`])+`)"
 	space_      = "(?:[ \\t]+)"
 	symbol_     = "(?:\\$(?:" + identifier_ + ")(-(?:" + ordinal_ + "))?)"
 )
