@@ -172,7 +172,7 @@ func AssemblyClass() AssemblyClassLike {
 }
 
 func Assembly(
-	instructions fra.ListLike[ast.InstructionLike],
+	instructions fra.Sequential[ast.InstructionLike],
 ) AssemblyLike {
 	return AssemblyClass().Assembly(
 		instructions,
