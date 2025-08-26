@@ -346,8 +346,8 @@ func (v *visitor_) visitDestination(
 	// Visit the possible destination literal values.
 	var actual = destination.GetAny().(string)
 	switch actual {
-	case "DRAFT":
-		v.processor_.ProcessDelimiter("DRAFT")
+	case "COMPONENT":
+		v.processor_.ProcessDelimiter("COMPONENT")
 	case "CONTRACT":
 		v.processor_.ProcessDelimiter("CONTRACT")
 	}
@@ -771,8 +771,8 @@ func (v *visitor_) visitValue(
 	// Visit the possible value literal values.
 	var actual = value.GetAny().(string)
 	switch actual {
-	case "DRAFT":
-		v.processor_.ProcessDelimiter("DRAFT")
+	case "COMPONENT":
+		v.processor_.ProcessDelimiter("COMPONENT")
 	case "RESULT":
 		v.processor_.ProcessDelimiter("RESULT")
 	case "EXCEPTION":

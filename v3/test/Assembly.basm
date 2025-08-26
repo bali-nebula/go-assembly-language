@@ -30,7 +30,7 @@ PUSH HANDLER 6.Drop
 
 3.Pull:
 NOTE --Pulls the top value from a stack.
-PULL DRAFT
+PULL COMPONENT
 PULL RESULT
 PULL EXCEPTION
 PULL HANDLER
@@ -65,7 +65,7 @@ CALL $range WITH 3 ARGUMENTS
 
 8.Send:
 NOTE --Sends a message to a target component with optional arguments.
-SEND $getAncestry TO DRAFT
-SEND $setParameter TO DRAFT WITH ARGUMENTS
+SEND $getAncestry TO COMPONENT
+SEND $setParameter TO COMPONENT WITH ARGUMENTS
 SEND $getKeys TO CONTRACT
 SEND $setAttribute TO CONTRACT WITH ARGUMENTS

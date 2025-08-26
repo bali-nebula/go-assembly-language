@@ -70,7 +70,7 @@ $Handler: "HANDLER" label
 $Pull: "PULL" Value
 
 $Value:
-    "DRAFT"
+    "COMPONENT"
     "RESULT"
     "EXCEPTION"
     "HANDLER"
@@ -97,7 +97,7 @@ $Cardinality:
 $Send: "SEND" symbol "TO" Destination Parameterized?
 
 $Destination:
-    "DRAFT"
+    "COMPONENT"
     "CONTRACT"
 
 $Parameterized: "WITH ARGUMENTS"
