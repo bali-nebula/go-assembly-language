@@ -316,12 +316,12 @@ func (v *visitor_) visitConditionally(
 	// Visit the possible conditionally literal values.
 	var actual = conditionally.GetAny().(string)
 	switch actual {
-	case "ON EMPTY":
-		v.processor_.ProcessDelimiter("ON EMPTY")
 	case "ON NONE":
 		v.processor_.ProcessDelimiter("ON NONE")
 	case "ON FALSE":
 		v.processor_.ProcessDelimiter("ON FALSE")
+	case "ON EMPTY":
+		v.processor_.ProcessDelimiter("ON EMPTY")
 	}
 }
 

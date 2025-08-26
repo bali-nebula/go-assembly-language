@@ -4,9 +4,9 @@ SKIP
 1.Jump:
 NOTE --Jumps to a new address (conditionally or unconditionally).
 JUMP TO 2.Push
-JUMP TO 3.Pull ON EMPTY
-JUMP TO 4.Load ON NONE
-JUMP TO 5.Save ON FALSE
+JUMP TO 3.Pull ON NONE
+JUMP TO 4.Load ON FALSE
+JUMP TO 5.Save ON EMPTY
 
 2.Push:
 NOTE --Pushes a value onto a stack.

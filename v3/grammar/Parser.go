@@ -419,14 +419,6 @@ func (v *parser_) parseConditionally() (
 ) {
 	var delimiter string
 
-	// Attempt to parse a single "ON EMPTY" delimiter.
-	delimiter, token, ok = v.parseDelimiter("ON EMPTY")
-	if ok {
-		// Found a single "ON EMPTY" delimiter.
-		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
-		return
-	}
-
 	// Attempt to parse a single "ON NONE" delimiter.
 	delimiter, token, ok = v.parseDelimiter("ON NONE")
 	if ok {
@@ -439,6 +431,14 @@ func (v *parser_) parseConditionally() (
 	delimiter, token, ok = v.parseDelimiter("ON FALSE")
 	if ok {
 		// Found a single "ON FALSE" delimiter.
+		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "ON EMPTY" delimiter.
+	delimiter, token, ok = v.parseDelimiter("ON EMPTY")
+	if ok {
+		// Found a single "ON EMPTY" delimiter.
 		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
 		return
 	}
@@ -1616,9 +1616,9 @@ var parserClassReference_ = &parserClass_{
 			"$Skip": `"SKIP"`,
 			"$Jump": `"JUMP TO" label Conditionally?`,
 			"$Conditionally": `
-    "ON EMPTY"
     "ON NONE"
-    "ON FALSE"`,
+    "ON FALSE"
+    "ON EMPTY"`,
 			"$Push": `"PUSH" Source`,
 			"$Source": `
     Literal
