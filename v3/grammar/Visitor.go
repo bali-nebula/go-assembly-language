@@ -62,14 +62,14 @@ func (v *visitor_) VisitAssembly(
 ) {
 	v.processor_.PreprocessAssembly(
 		assembly,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitAssembly(assembly)
 	v.processor_.PostprocessAssembly(
 		assembly,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -85,122 +85,122 @@ func (v *visitor_) visitAction(
 	case ast.NoteLike:
 		v.processor_.PreprocessNote(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitNote(actual)
 		v.processor_.PostprocessNote(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.SkipLike:
 		v.processor_.PreprocessSkip(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSkip(actual)
 		v.processor_.PostprocessSkip(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.JumpLike:
 		v.processor_.PreprocessJump(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitJump(actual)
 		v.processor_.PostprocessJump(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.PushLike:
 		v.processor_.PreprocessPush(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPush(actual)
 		v.processor_.PostprocessPush(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.PullLike:
 		v.processor_.PreprocessPull(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPull(actual)
 		v.processor_.PostprocessPull(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.LoadLike:
 		v.processor_.PreprocessLoad(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitLoad(actual)
 		v.processor_.PostprocessLoad(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.SaveLike:
 		v.processor_.PreprocessSave(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSave(actual)
 		v.processor_.PostprocessSave(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.DropLike:
 		v.processor_.PreprocessDrop(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitDrop(actual)
 		v.processor_.PostprocessDrop(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.CallLike:
 		v.processor_.PreprocessCall(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitCall(actual)
 		v.processor_.PostprocessCall(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.SendLike:
 		v.processor_.PreprocessSend(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSend(actual)
 		v.processor_.PostprocessSend(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	}
 }
@@ -266,14 +266,14 @@ func (v *visitor_) visitCall(
 	if uti.IsDefined(optionalCardinality) {
 		v.processor_.PreprocessCardinality(
 			optionalCardinality,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitCardinality(optionalCardinality)
 		v.processor_.PostprocessCardinality(
 			optionalCardinality,
-			1,
-			1,
+			0,
+			0,
 		)
 	}
 }
@@ -299,10 +299,10 @@ func (v *visitor_) visitComponent(
 	// Visit the possible component literal values.
 	var actual = component.GetAny().(string)
 	switch actual {
-	case "CONTRACT":
-		v.processor_.ProcessDelimiter("CONTRACT")
 	case "DRAFT":
 		v.processor_.ProcessDelimiter("DRAFT")
+	case "CONTRACT":
+		v.processor_.ProcessDelimiter("CONTRACT")
 	case "VARIABLE":
 		v.processor_.ProcessDelimiter("VARIABLE")
 	case "MESSAGE":
@@ -346,10 +346,10 @@ func (v *visitor_) visitDestination(
 	// Visit the possible destination literal values.
 	var actual = destination.GetAny().(string)
 	switch actual {
+	case "DRAFT":
+		v.processor_.ProcessDelimiter("DRAFT")
 	case "CONTRACT":
 		v.processor_.ProcessDelimiter("CONTRACT")
-	case "COMPONENT":
-		v.processor_.ProcessDelimiter("COMPONENT")
 	}
 }
 
@@ -367,14 +367,14 @@ func (v *visitor_) visitDrop(
 	var component = drop.GetComponent()
 	v.processor_.PreprocessComponent(
 		component,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitComponent(component)
 	v.processor_.PostprocessComponent(
 		component,
-		1,
-		1,
+		0,
+		0,
 	)
 	// Visit slot 2 between terms.
 	v.processor_.ProcessDropSlot(
@@ -408,14 +408,14 @@ func (v *visitor_) visitInstruction(
 	if uti.IsDefined(optionalPrefix) {
 		v.processor_.PreprocessPrefix(
 			optionalPrefix,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPrefix(optionalPrefix)
 		v.processor_.PostprocessPrefix(
 			optionalPrefix,
-			1,
-			1,
+			0,
+			0,
 		)
 	}
 	// Visit slot 1 between terms.
@@ -427,14 +427,14 @@ func (v *visitor_) visitInstruction(
 	var action = instruction.GetAction()
 	v.processor_.PreprocessAction(
 		action,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitAction(action)
 	v.processor_.PostprocessAction(
 		action,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -461,14 +461,14 @@ func (v *visitor_) visitJump(
 	if uti.IsDefined(optionalConditionally) {
 		v.processor_.PreprocessConditionally(
 			optionalConditionally,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitConditionally(optionalConditionally)
 		v.processor_.PostprocessConditionally(
 			optionalConditionally,
-			1,
-			1,
+			0,
+			0,
 		)
 	}
 }
@@ -502,14 +502,14 @@ func (v *visitor_) visitLoad(
 	var component = load.GetComponent()
 	v.processor_.PreprocessComponent(
 		component,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitComponent(component)
 	v.processor_.PostprocessComponent(
 		component,
-		1,
-		1,
+		0,
+		0,
 	)
 	// Visit slot 2 between terms.
 	v.processor_.ProcessLoadSlot(
@@ -572,14 +572,14 @@ func (v *visitor_) visitPull(
 	var value = pull.GetValue()
 	v.processor_.PreprocessValue(
 		value,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitValue(value)
 	v.processor_.PostprocessValue(
 		value,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -597,14 +597,14 @@ func (v *visitor_) visitPush(
 	var source = push.GetSource()
 	v.processor_.PreprocessSource(
 		source,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitSource(source)
 	v.processor_.PostprocessSource(
 		source,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -622,14 +622,14 @@ func (v *visitor_) visitSave(
 	var component = save.GetComponent()
 	v.processor_.PreprocessComponent(
 		component,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitComponent(component)
 	v.processor_.PostprocessComponent(
 		component,
-		1,
-		1,
+		0,
+		0,
 	)
 	// Visit slot 2 between terms.
 	v.processor_.ProcessSaveSlot(
@@ -671,14 +671,14 @@ func (v *visitor_) visitSend(
 	var destination = send.GetDestination()
 	v.processor_.PreprocessDestination(
 		destination,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitDestination(destination)
 	v.processor_.PostprocessDestination(
 		destination,
-		1,
-		1,
+		0,
+		0,
 	)
 	// Visit slot 4 between terms.
 	v.processor_.ProcessSendSlot(
@@ -690,14 +690,14 @@ func (v *visitor_) visitSend(
 	if uti.IsDefined(optionalParameterized) {
 		v.processor_.PreprocessParameterized(
 			optionalParameterized,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitParameterized(optionalParameterized)
 		v.processor_.PostprocessParameterized(
 			optionalParameterized,
-			1,
-			1,
+			0,
+			0,
 		)
 	}
 }
@@ -714,53 +714,53 @@ func (v *visitor_) visitSource(
 ) {
 	// Visit the possible source rule types.
 	switch actual := source.GetAny().(type) {
-	case ast.HandlerLike:
-		v.processor_.PreprocessHandler(
-			actual,
-			1,
-			1,
-		)
-		v.visitHandler(actual)
-		v.processor_.PostprocessHandler(
-			actual,
-			1,
-			1,
-		)
 	case ast.LiteralLike:
 		v.processor_.PreprocessLiteral(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitLiteral(actual)
 		v.processor_.PostprocessLiteral(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.ConstantLike:
 		v.processor_.PreprocessConstant(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitConstant(actual)
 		v.processor_.PostprocessConstant(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case ast.ArgumentLike:
 		v.processor_.PreprocessArgument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitArgument(actual)
 		v.processor_.PostprocessArgument(
 			actual,
-			1,
-			1,
+			0,
+			0,
+		)
+	case ast.HandlerLike:
+		v.processor_.PreprocessHandler(
+			actual,
+			0,
+			0,
+		)
+		v.visitHandler(actual)
+		v.processor_.PostprocessHandler(
+			actual,
+			0,
+			0,
 		)
 	}
 }
@@ -771,14 +771,14 @@ func (v *visitor_) visitValue(
 	// Visit the possible value literal values.
 	var actual = value.GetAny().(string)
 	switch actual {
-	case "HANDLER":
-		v.processor_.ProcessDelimiter("HANDLER")
-	case "EXCEPTION":
-		v.processor_.ProcessDelimiter("EXCEPTION")
-	case "COMPONENT":
-		v.processor_.ProcessDelimiter("COMPONENT")
+	case "DRAFT":
+		v.processor_.ProcessDelimiter("DRAFT")
 	case "RESULT":
 		v.processor_.ProcessDelimiter("RESULT")
+	case "EXCEPTION":
+		v.processor_.ProcessDelimiter("EXCEPTION")
+	case "HANDLER":
+		v.processor_.ProcessDelimiter("HANDLER")
 	}
 }
 

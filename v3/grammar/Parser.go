@@ -67,7 +67,7 @@ func (v *parser_) ParseSource(
 
 	// Attempt to parse the assembly.
 	var assembly, token, ok = v.parseAssembly()
-	if !ok || !v.tokens_.IsEmpty() {
+	if !ok || v.tokens_.GetSize() > 1 {
 		var message = v.formatError("$Assembly", token)
 		panic(message)
 	}
@@ -376,18 +376,18 @@ func (v *parser_) parseComponent() (
 ) {
 	var delimiter string
 
-	// Attempt to parse a single "CONTRACT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("CONTRACT")
-	if ok {
-		// Found a single "CONTRACT" delimiter.
-		component = ast.ComponentClass().Component(delimiter)
-		return
-	}
-
 	// Attempt to parse a single "DRAFT" delimiter.
 	delimiter, token, ok = v.parseDelimiter("DRAFT")
 	if ok {
 		// Found a single "DRAFT" delimiter.
+		component = ast.ComponentClass().Component(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "CONTRACT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("CONTRACT")
+	if ok {
+		// Found a single "CONTRACT" delimiter.
 		component = ast.ComponentClass().Component(delimiter)
 		return
 	}
@@ -507,18 +507,18 @@ func (v *parser_) parseDestination() (
 ) {
 	var delimiter string
 
-	// Attempt to parse a single "CONTRACT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("CONTRACT")
+	// Attempt to parse a single "DRAFT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("DRAFT")
 	if ok {
-		// Found a single "CONTRACT" delimiter.
+		// Found a single "DRAFT" delimiter.
 		destination = ast.DestinationClass().Destination(delimiter)
 		return
 	}
 
-	// Attempt to parse a single "COMPONENT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("COMPONENT")
+	// Attempt to parse a single "CONTRACT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("CONTRACT")
 	if ok {
-		// Found a single "COMPONENT" delimiter.
+		// Found a single "CONTRACT" delimiter.
 		destination = ast.DestinationClass().Destination(delimiter)
 		return
 	}
@@ -1340,15 +1340,6 @@ func (v *parser_) parseSource() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Handler Source.
-	var handler ast.HandlerLike
-	handler, token, ok = v.parseHandler()
-	if ok {
-		// Found a single Handler Source.
-		source = ast.SourceClass().Source(handler)
-		return
-	}
-
 	// Attempt to parse a single Literal Source.
 	var literal ast.LiteralLike
 	literal, token, ok = v.parseLiteral()
@@ -1376,6 +1367,15 @@ func (v *parser_) parseSource() (
 		return
 	}
 
+	// Attempt to parse a single Handler Source.
+	var handler ast.HandlerLike
+	handler, token, ok = v.parseHandler()
+	if ok {
+		// Found a single Handler Source.
+		source = ast.SourceClass().Source(handler)
+		return
+	}
+
 	// This is not a single Source rule.
 	return
 }
@@ -1387,10 +1387,18 @@ func (v *parser_) parseValue() (
 ) {
 	var delimiter string
 
-	// Attempt to parse a single "HANDLER" delimiter.
-	delimiter, token, ok = v.parseDelimiter("HANDLER")
+	// Attempt to parse a single "DRAFT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("DRAFT")
 	if ok {
-		// Found a single "HANDLER" delimiter.
+		// Found a single "DRAFT" delimiter.
+		value = ast.ValueClass().Value(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "RESULT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("RESULT")
+	if ok {
+		// Found a single "RESULT" delimiter.
 		value = ast.ValueClass().Value(delimiter)
 		return
 	}
@@ -1403,18 +1411,10 @@ func (v *parser_) parseValue() (
 		return
 	}
 
-	// Attempt to parse a single "COMPONENT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("COMPONENT")
+	// Attempt to parse a single "HANDLER" delimiter.
+	delimiter, token, ok = v.parseDelimiter("HANDLER")
 	if ok {
-		// Found a single "COMPONENT" delimiter.
-		value = ast.ValueClass().Value(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "RESULT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("RESULT")
-	if ok {
-		// Found a single "RESULT" delimiter.
+		// Found a single "HANDLER" delimiter.
 		value = ast.ValueClass().Value(delimiter)
 		return
 	}
@@ -1621,26 +1621,26 @@ var parserClassReference_ = &parserClass_{
     "ON FALSE"`,
 			"$Push": `"PUSH" Source`,
 			"$Source": `
-    Handler
     Literal
     Constant
-    Argument`,
-			"$Handler":  `"HANDLER" label`,
+    Argument
+    Handler`,
 			"$Literal":  `"LITERAL" quoted`,
 			"$Constant": `"CONSTANT" symbol`,
 			"$Argument": `"ARGUMENT" symbol`,
+			"$Handler":  `"HANDLER" label`,
 			"$Pull":     `"PULL" Value`,
 			"$Value": `
-    "HANDLER"
+    "DRAFT"
+    "RESULT"
     "EXCEPTION"
-    "COMPONENT"
-    "RESULT"`,
+    "HANDLER"`,
 			"$Load": `"LOAD" Component symbol`,
 			"$Save": `"SAVE" Component symbol`,
 			"$Drop": `"DROP" Component symbol`,
 			"$Component": `
-    "CONTRACT"
     "DRAFT"
+    "CONTRACT"
     "VARIABLE"
     "MESSAGE"`,
 			"$Call": `"CALL" symbol Cardinality?`,
@@ -1650,8 +1650,8 @@ var parserClassReference_ = &parserClass_{
     "WITH 3 ARGUMENTS"`,
 			"$Send": `"SEND" symbol "TO" Destination Parameterized?`,
 			"$Destination": `
-    "CONTRACT"
-    "COMPONENT"`,
+    "DRAFT"
+    "CONTRACT"`,
 			"$Parameterized": `"WITH ARGUMENTS"`,
 		},
 	),

@@ -1,26 +1,22 @@
 <img src="https://craterdog.com/images/CraterDog.png" width="50%">
 
-### _\* \* \* NOTICE \* \* \*_
-_This project is still under development and is for reference purposes only. If
-you are interested in this project or have suggestions on how to improve it feel
-free to contact us at [craterdog@gmail.com](mailto:craterdog@gmail.com)._
-
 ### Overview
-This project provides a framework for parsing, manipulating and formatting
-documents containing _Bali Assembly Language™_. The abstract syntax trees
-(ASTs) that are generated can be processed by agents like compilers,
-interpreters and formatters for different document types (HTML, JSON, XML, etc.)
+This project was automatically generated based on the Crater Dog Syntax Notation™
+(CDSN) file located
+[here](https://github.com/bali-nebula/go-assembly-language/blob/main/v3/syntax.cdsn).
+It provides a framework for parsing, manipulating and formatting documents
+containing Bali Assembly Language™ (BASM) which results in bytecode that runs on
+the Bali Virtual Machine™ running in the Bali Nebula™ cloud environment.
+
+_This project is not meant to be used by other projects._
 
 ### Quick Links
 For more information on this project click on the following links:
- * [project documentation](https://github.com/bali-nebula/go-assembly-language/wiki)
+ * [code generation](https://github.com/craterdog/go-development-tools/wiki)
  * [coding conventions](https://github.com/craterdog/go-development-tools/wiki/Coding-Conventions)
 
 ### Contributing
-Project contributors are always welcome. Create a
-[fork](https://github.com/bali-nebula/go-assembly-language) of the project and add cool
-new things to the framework. When you are ready to contribute the changes create a subsequent
-["pull request"](https://help.github.com/articles/about-pull-requests/). Any questions and
-comments can be sent to [craterdog@gmail.com](mailto:craterdog@gmail.com).
+Project contributors are always welcome.  Questions and comments can be sent to
+[craterdog@gmail.com](mailto:craterdog@gmail.com).
 
 <H5 align="center"> Copyright © 2009 - 2025  Crater Dog Technologies™. All rights reserved. </H5>
