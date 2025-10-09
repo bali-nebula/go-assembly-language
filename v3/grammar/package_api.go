@@ -407,6 +407,20 @@ type Methodical interface {
 		constant ast.ConstantLike,
 		slot_ uint,
 	)
+	PreprocessContext(
+		context ast.ContextLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessContext(
+		context ast.ContextLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessContextSlot(
+		context ast.ContextLike,
+		slot_ uint,
+	)
 	PreprocessDestination(
 		destination ast.DestinationLike,
 		index_ uint,
@@ -517,20 +531,6 @@ type Methodical interface {
 	)
 	ProcessNoteSlot(
 		note ast.NoteLike,
-		slot_ uint,
-	)
-	PreprocessParameterized(
-		parameterized ast.ParameterizedLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessParameterized(
-		parameterized ast.ParameterizedLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessParameterizedSlot(
-		parameterized ast.ParameterizedLike,
 		slot_ uint,
 	)
 	PreprocessPrefix(

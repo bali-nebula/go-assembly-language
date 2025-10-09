@@ -38,23 +38,23 @@ PULL HANDLER
 4.Load:
 NOTE --Loads a value from the environment onto a stack.
 LOAD DRAFT $citation
-LOAD CONTRACT $name
-LOAD VARIABLE $variable
+LOAD DOCUMENT $name
 LOAD MESSAGE $bag
+LOAD VARIABLE $variable
 
 5.Save:
 NOTE --Saves the top value from a stack into the environment.
 SAVE DRAFT $citation
-SAVE CONTRACT $name
-SAVE VARIABLE $variable
+SAVE DOCUMENT $name
 SAVE MESSAGE $bag
+SAVE VARIABLE $variable
 
 6.Drop:
 NOTE --Drops a value from the environment.
 DROP DRAFT $citation
-DROP CONTRACT $name
-DROP VARIABLE $variable
+DROP DOCUMENT $name
 DROP MESSAGE $message
+DROP VARIABLE $variable
 
 7.Call:
 NOTE --Calls an intrinsic function with 0 to 3 arguments.
@@ -67,5 +67,5 @@ CALL $range WITH 3 ARGUMENTS
 NOTE --Sends a message to a target component with optional arguments.
 SEND $getAncestry TO COMPONENT
 SEND $setParameter TO COMPONENT WITH ARGUMENTS
-SEND $getKeys TO CONTRACT
-SEND $setAttribute TO CONTRACT WITH ARGUMENTS
+SEND $getKeys TO DOCUMENT
+SEND $setAttribute TO DOCUMENT WITH ARGUMENTS

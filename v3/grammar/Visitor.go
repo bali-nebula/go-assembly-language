@@ -301,12 +301,12 @@ func (v *visitor_) visitComponent(
 	switch actual {
 	case "DRAFT":
 		v.processor_.ProcessDelimiter("DRAFT")
-	case "CONTRACT":
-		v.processor_.ProcessDelimiter("CONTRACT")
-	case "VARIABLE":
-		v.processor_.ProcessDelimiter("VARIABLE")
+	case "DOCUMENT":
+		v.processor_.ProcessDelimiter("DOCUMENT")
 	case "MESSAGE":
 		v.processor_.ProcessDelimiter("MESSAGE")
+	case "VARIABLE":
+		v.processor_.ProcessDelimiter("VARIABLE")
 	}
 }
 
@@ -340,6 +340,13 @@ func (v *visitor_) visitConstant(
 	v.processor_.ProcessSymbol(symbol)
 }
 
+func (v *visitor_) visitContext(
+	context ast.ContextLike,
+) {
+	var delimiter = context.GetDelimiter()
+	v.processor_.ProcessDelimiter(delimiter)
+}
+
 func (v *visitor_) visitDestination(
 	destination ast.DestinationLike,
 ) {
@@ -348,8 +355,8 @@ func (v *visitor_) visitDestination(
 	switch actual {
 	case "COMPONENT":
 		v.processor_.ProcessDelimiter("COMPONENT")
-	case "CONTRACT":
-		v.processor_.ProcessDelimiter("CONTRACT")
+	case "DOCUMENT":
+		v.processor_.ProcessDelimiter("DOCUMENT")
 	}
 }
 
@@ -536,13 +543,6 @@ func (v *visitor_) visitNote(
 	v.processor_.ProcessComment(comment)
 }
 
-func (v *visitor_) visitParameterized(
-	parameterized ast.ParameterizedLike,
-) {
-	var delimiter = parameterized.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-}
-
 func (v *visitor_) visitPrefix(
 	prefix ast.PrefixLike,
 ) {
@@ -686,16 +686,16 @@ func (v *visitor_) visitSend(
 		4,
 	)
 
-	var optionalParameterized = send.GetOptionalParameterized()
-	if uti.IsDefined(optionalParameterized) {
-		v.processor_.PreprocessParameterized(
-			optionalParameterized,
+	var optionalContext = send.GetOptionalContext()
+	if uti.IsDefined(optionalContext) {
+		v.processor_.PreprocessContext(
+			optionalContext,
 			0,
 			0,
 		)
-		v.visitParameterized(optionalParameterized)
-		v.processor_.PostprocessParameterized(
-			optionalParameterized,
+		v.visitContext(optionalContext)
+		v.processor_.PostprocessContext(
+			optionalContext,
 			0,
 			0,
 		)

@@ -384,18 +384,10 @@ func (v *parser_) parseComponent() (
 		return
 	}
 
-	// Attempt to parse a single "CONTRACT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("CONTRACT")
+	// Attempt to parse a single "DOCUMENT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("DOCUMENT")
 	if ok {
-		// Found a single "CONTRACT" delimiter.
-		component = ast.ComponentClass().Component(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "VARIABLE" delimiter.
-	delimiter, token, ok = v.parseDelimiter("VARIABLE")
-	if ok {
-		// Found a single "VARIABLE" delimiter.
+		// Found a single "DOCUMENT" delimiter.
 		component = ast.ComponentClass().Component(delimiter)
 		return
 	}
@@ -404,6 +396,14 @@ func (v *parser_) parseComponent() (
 	delimiter, token, ok = v.parseDelimiter("MESSAGE")
 	if ok {
 		// Found a single "MESSAGE" delimiter.
+		component = ast.ComponentClass().Component(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "VARIABLE" delimiter.
+	delimiter, token, ok = v.parseDelimiter("VARIABLE")
+	if ok {
+		// Found a single "VARIABLE" delimiter.
 		component = ast.ComponentClass().Component(delimiter)
 		return
 	}
@@ -500,6 +500,38 @@ func (v *parser_) parseConstant() (
 	return
 }
 
+func (v *parser_) parseContext() (
+	context ast.ContextLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = fra.List[TokenLike]()
+
+	// Attempt to parse a single "WITH ARGUMENTS" literal.
+	var delimiter string
+	delimiter, token, ok = v.parseDelimiter("WITH ARGUMENTS")
+	if !ok {
+		if uti.IsDefined(tokens) {
+			// This is not a single Context rule.
+			v.putBack(tokens)
+			return
+		} else {
+			// Found a syntax error.
+			var message = v.formatError("$Context", token)
+			panic(message)
+		}
+	}
+	if uti.IsDefined(tokens) {
+		tokens.AppendValue(token)
+	}
+
+	// Found a single Context rule.
+	ok = true
+	v.remove(tokens)
+	context = ast.ContextClass().Context(delimiter)
+	return
+}
+
 func (v *parser_) parseDestination() (
 	destination ast.DestinationLike,
 	token TokenLike,
@@ -515,10 +547,10 @@ func (v *parser_) parseDestination() (
 		return
 	}
 
-	// Attempt to parse a single "CONTRACT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("CONTRACT")
+	// Attempt to parse a single "DOCUMENT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("DOCUMENT")
 	if ok {
-		// Found a single "CONTRACT" delimiter.
+		// Found a single "DOCUMENT" delimiter.
 		destination = ast.DestinationClass().Destination(delimiter)
 		return
 	}
@@ -938,38 +970,6 @@ func (v *parser_) parseNote() (
 	return
 }
 
-func (v *parser_) parseParameterized() (
-	parameterized ast.ParameterizedLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = fra.List[TokenLike]()
-
-	// Attempt to parse a single "WITH ARGUMENTS" literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("WITH ARGUMENTS")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Parameterized rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Parameterized", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single Parameterized rule.
-	ok = true
-	v.remove(tokens)
-	parameterized = ast.ParameterizedClass().Parameterized(delimiter)
-	return
-}
-
 func (v *parser_) parsePrefix() (
 	prefix ast.PrefixLike,
 	token TokenLike,
@@ -1282,9 +1282,9 @@ func (v *parser_) parseSend() (
 		panic(message)
 	}
 
-	// Attempt to parse an optional Parameterized rule.
-	var optionalParameterized ast.ParameterizedLike
-	optionalParameterized, _, ok = v.parseParameterized()
+	// Attempt to parse an optional Context rule.
+	var optionalContext ast.ContextLike
+	optionalContext, _, ok = v.parseContext()
 	if ok {
 		// No additional put backs allowed at this point.
 		tokens = nil
@@ -1298,7 +1298,7 @@ func (v *parser_) parseSend() (
 		symbol,
 		delimiter2,
 		destination,
-		optionalParameterized,
+		optionalContext,
 	)
 	return
 }
@@ -1640,19 +1640,19 @@ var parserClassReference_ = &parserClass_{
 			"$Drop": `"DROP" Component symbol`,
 			"$Component": `
     "DRAFT"
-    "CONTRACT"
-    "VARIABLE"
-    "MESSAGE"`,
+    "DOCUMENT"
+    "MESSAGE"
+    "VARIABLE"`,
 			"$Call": `"CALL" symbol Cardinality?`,
 			"$Cardinality": `
     "WITH 1 ARGUMENT"
     "WITH 2 ARGUMENTS"
     "WITH 3 ARGUMENTS"`,
-			"$Send": `"SEND" symbol "TO" Destination Parameterized?`,
+			"$Send": `"SEND" symbol "TO" Destination Context?`,
 			"$Destination": `
     "COMPONENT"
-    "CONTRACT"`,
-			"$Parameterized": `"WITH ARGUMENTS"`,
+    "DOCUMENT"`,
+			"$Context": `"WITH ARGUMENTS"`,
 		},
 	),
 }

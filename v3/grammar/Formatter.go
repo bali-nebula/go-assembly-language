@@ -150,6 +150,21 @@ func (v *formatter_) ProcessConstantSlot(
 	v.appendString(" ")
 }
 
+func (v *formatter_) PreprocessContext(
+	context ast.ContextLike,
+	index_ uint,
+	count_ uint,
+) {
+	v.appendString(" ")
+}
+
+func (v *formatter_) ProcessContextSlot(
+	context ast.ContextLike,
+	slot_ uint,
+) {
+	v.appendString(" ")
+}
+
 func (v *formatter_) ProcessDropSlot(
 	drop ast.DropLike,
 	slot_ uint,
@@ -198,21 +213,6 @@ func (v *formatter_) ProcessLoadSlot(
 
 func (v *formatter_) ProcessNoteSlot(
 	note ast.NoteLike,
-	slot_ uint,
-) {
-	v.appendString(" ")
-}
-
-func (v *formatter_) PreprocessParameterized(
-	parameterized ast.ParameterizedLike,
-	index_ uint,
-	count_ uint,
-) {
-	v.appendString(" ")
-}
-
-func (v *formatter_) ProcessParameterizedSlot(
-	parameterized ast.ParameterizedLike,
 	slot_ uint,
 ) {
 	v.appendString(" ")

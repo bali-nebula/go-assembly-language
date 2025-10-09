@@ -49,6 +49,7 @@ type (
 	ComponentClassLike     = ast.ComponentClassLike
 	ConditionallyClassLike = ast.ConditionallyClassLike
 	ConstantClassLike      = ast.ConstantClassLike
+	ContextClassLike       = ast.ContextClassLike
 	DestinationClassLike   = ast.DestinationClassLike
 	DropClassLike          = ast.DropClassLike
 	HandlerClassLike       = ast.HandlerClassLike
@@ -57,7 +58,6 @@ type (
 	LiteralClassLike       = ast.LiteralClassLike
 	LoadClassLike          = ast.LoadClassLike
 	NoteClassLike          = ast.NoteClassLike
-	ParameterizedClassLike = ast.ParameterizedClassLike
 	PrefixClassLike        = ast.PrefixClassLike
 	PullClassLike          = ast.PullClassLike
 	PushClassLike          = ast.PushClassLike
@@ -77,6 +77,7 @@ type (
 	ComponentLike     = ast.ComponentLike
 	ConditionallyLike = ast.ConditionallyLike
 	ConstantLike      = ast.ConstantLike
+	ContextLike       = ast.ContextLike
 	DestinationLike   = ast.DestinationLike
 	DropLike          = ast.DropLike
 	HandlerLike       = ast.HandlerLike
@@ -85,7 +86,6 @@ type (
 	LiteralLike       = ast.LiteralLike
 	LoadLike          = ast.LoadLike
 	NoteLike          = ast.NoteLike
-	ParameterizedLike = ast.ParameterizedLike
 	PrefixLike        = ast.PrefixLike
 	PullLike          = ast.PullLike
 	PushLike          = ast.PushLike
@@ -245,6 +245,18 @@ func Constant(
 	)
 }
 
+func ContextClass() ContextClassLike {
+	return ast.ContextClass()
+}
+
+func Context(
+	delimiter string,
+) ContextLike {
+	return ContextClass().Context(
+		delimiter,
+	)
+}
+
 func DestinationClass() DestinationClassLike {
 	return ast.DestinationClass()
 }
@@ -361,18 +373,6 @@ func Note(
 	)
 }
 
-func ParameterizedClass() ParameterizedClassLike {
-	return ast.ParameterizedClass()
-}
-
-func Parameterized(
-	delimiter string,
-) ParameterizedLike {
-	return ParameterizedClass().Parameterized(
-		delimiter,
-	)
-}
-
 func PrefixClass() PrefixClassLike {
 	return ast.PrefixClass()
 }
@@ -440,14 +440,14 @@ func Send(
 	symbol string,
 	delimiter2 string,
 	destination ast.DestinationLike,
-	optionalParameterized ast.ParameterizedLike,
+	optionalContext ast.ContextLike,
 ) SendLike {
 	return SendClass().Send(
 		delimiter1,
 		symbol,
 		delimiter2,
 		destination,
-		optionalParameterized,
+		optionalContext,
 	)
 }
 

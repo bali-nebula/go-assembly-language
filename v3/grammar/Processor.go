@@ -247,6 +247,26 @@ func (v *processor_) ProcessConstantSlot(
 ) {
 }
 
+func (v *processor_) PreprocessContext(
+	context ast.ContextLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessContext(
+	context ast.ContextLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessContextSlot(
+	context ast.ContextLike,
+	slot_ uint,
+) {
+}
+
 func (v *processor_) PreprocessDestination(
 	destination ast.DestinationLike,
 	index_ uint,
@@ -403,26 +423,6 @@ func (v *processor_) PostprocessNote(
 
 func (v *processor_) ProcessNoteSlot(
 	note ast.NoteLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PreprocessParameterized(
-	parameterized ast.ParameterizedLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessParameterized(
-	parameterized ast.ParameterizedLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessParameterizedSlot(
-	parameterized ast.ParameterizedLike,
 	slot_ uint,
 ) {
 }

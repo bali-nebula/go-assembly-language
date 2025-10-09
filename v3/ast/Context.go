@@ -29,19 +29,19 @@ import (
 
 // Access Function
 
-func ParameterizedClass() ParameterizedClassLike {
-	return parameterizedClass()
+func ContextClass() ContextClassLike {
+	return contextClass()
 }
 
 // Constructor Methods
 
-func (c *parameterizedClass_) Parameterized(
+func (c *contextClass_) Context(
 	delimiter string,
-) ParameterizedLike {
+) ContextLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
 	}
-	var instance = &parameterized_{
+	var instance = &context_{
 		// Initialize the instance attributes.
 		delimiter_: delimiter,
 	}
@@ -52,13 +52,13 @@ func (c *parameterizedClass_) Parameterized(
 
 // Principal Methods
 
-func (v *parameterized_) GetClass() ParameterizedClassLike {
-	return parameterizedClass()
+func (v *context_) GetClass() ContextClassLike {
+	return contextClass()
 }
 
 // Attribute Methods
 
-func (v *parameterized_) GetDelimiter() string {
+func (v *context_) GetDelimiter() string {
 	return v.delimiter_
 }
 
@@ -66,23 +66,23 @@ func (v *parameterized_) GetDelimiter() string {
 
 // Instance Structure
 
-type parameterized_ struct {
+type context_ struct {
 	// Declare the instance attributes.
 	delimiter_ string
 }
 
 // Class Structure
 
-type parameterizedClass_ struct {
+type contextClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func parameterizedClass() *parameterizedClass_ {
-	return parameterizedClassReference_
+func contextClass() *contextClass_ {
+	return contextClassReference_
 }
 
-var parameterizedClassReference_ = &parameterizedClass_{
+var contextClassReference_ = &contextClass_{
 	// Initialize the class constants.
 }

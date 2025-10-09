@@ -148,6 +148,18 @@ type ConstantClassLike interface {
 }
 
 /*
+ContextClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete context-like class.
+*/
+type ContextClassLike interface {
+	// Constructor Methods
+	Context(
+		delimiter string,
+	) ContextLike
+}
+
+/*
 DestinationClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete destination-like class.
@@ -254,18 +266,6 @@ type NoteClassLike interface {
 }
 
 /*
-ParameterizedClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete parameterized-like class.
-*/
-type ParameterizedClassLike interface {
-	// Constructor Methods
-	Parameterized(
-		delimiter string,
-	) ParameterizedLike
-}
-
-/*
 PrefixClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete prefix-like class.
@@ -330,7 +330,7 @@ type SendClassLike interface {
 		symbol string,
 		delimiter2 string,
 		destination DestinationLike,
-		optionalParameterized ParameterizedLike,
+		optionalContext ContextLike,
 	) SendLike
 }
 
@@ -481,6 +481,19 @@ type ConstantLike interface {
 }
 
 /*
+ContextLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete context-like class.
+*/
+type ContextLike interface {
+	// Principal Methods
+	GetClass() ContextClassLike
+
+	// Attribute Methods
+	GetDelimiter() string
+}
+
+/*
 DestinationLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete destination-like class.
@@ -595,19 +608,6 @@ type NoteLike interface {
 }
 
 /*
-ParameterizedLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete parameterized-like class.
-*/
-type ParameterizedLike interface {
-	// Principal Methods
-	GetClass() ParameterizedClassLike
-
-	// Attribute Methods
-	GetDelimiter() string
-}
-
-/*
 PrefixLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete prefix-like class.
@@ -678,7 +678,7 @@ type SendLike interface {
 	GetSymbol() string
 	GetDelimiter2() string
 	GetDestination() DestinationLike
-	GetOptionalParameterized() ParameterizedLike
+	GetOptionalContext() ContextLike
 }
 
 /*
