@@ -15,7 +15,7 @@ package module_test
 import (
 	fmt "fmt"
 	not "github.com/bali-nebula/go-assembly-language/v3"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	ass "github.com/stretchr/testify/assert"
 	tes "testing"
 )
