@@ -107,7 +107,7 @@ $Context: "WITH ARGUMENTS"
 │                            EXPRESSION DEFINITIONS                            │
 └──────────────────────────────────────────────────────────────────────────────┘
 <!
-$description: "! "~[CONTROL]*
+$description: "! " ~[CONTROL]*
 
 $label: (ORDINAL '.')+ IDENTIFIER
 
