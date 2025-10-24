@@ -17,22 +17,23 @@ import (
 	not "github.com/bali-nebula/go-assembly-language/v3"
 	uti "github.com/craterdog/go-missing-utilities/v8"
 	ass "github.com/stretchr/testify/assert"
+	sts "strings"
 	tes "testing"
 )
 
-var assemblyFiles = []string{
-	"./test/Assembly.basm",
-}
+const testDirectory = "./test/"
 
-func TestRoundTrips(t *tes.T) {
-	fmt.Println("Round Trip Tests:")
-	for _, assemblyFile := range assemblyFiles {
-		fmt.Printf("   %v\n", assemblyFile)
-		var source = uti.ReadFile(assemblyFile)
-		var assembly = not.ParseSource(source)
-		not.ValidateAssembly(assembly)
-		var actual = not.FormatAssembly(assembly)
-		ass.Equal(t, source, actual)
+func TestParsingRoundtrips(t *tes.T) {
+	var filenames = uti.ReadDirectory(testDirectory)
+	for _, filename := range filenames {
+		if sts.HasSuffix(filename, ".basm") {
+			filename = testDirectory + filename
+			fmt.Println(filename)
+			var source = uti.ReadFile(filename)
+			var assembly = not.ParseSource(source)
+			not.ValidateAssembly(assembly)
+			var formatted = not.FormatAssembly(assembly)
+			ass.Equal(t, source, formatted)
+		}
 	}
-	fmt.Println("Done.")
 }
