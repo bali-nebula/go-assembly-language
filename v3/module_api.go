@@ -26,7 +26,7 @@ the actual construction process to its corresponding concrete class declared in
 the corresponding package contained within this module.
 
 For detailed documentation on this entire module refer to the wiki:
-  - https://github.com/bali-nebula/go-bali-instructions/wiki
+  - https://github.com/bali-nebula/go-assembly-language/wiki
 */
 package module
 
