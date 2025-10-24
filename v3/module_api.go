@@ -103,14 +103,14 @@ type (
 )
 
 const (
-	ErrorToken     = gra.ErrorToken
-	CommentToken   = gra.CommentToken
-	DelimiterToken = gra.DelimiterToken
-	LabelToken     = gra.LabelToken
-	NewlineToken   = gra.NewlineToken
-	QuotedToken    = gra.QuotedToken
-	SpaceToken     = gra.SpaceToken
-	SymbolToken    = gra.SymbolToken
+	ErrorToken       = gra.ErrorToken
+	DelimiterToken   = gra.DelimiterToken
+	DescriptionToken = gra.DescriptionToken
+	LabelToken       = gra.LabelToken
+	NewlineToken     = gra.NewlineToken
+	QuotedToken      = gra.QuotedToken
+	SpaceToken       = gra.SpaceToken
+	SymbolToken      = gra.SymbolToken
 )
 
 type (
@@ -365,11 +365,11 @@ func NoteClass() NoteClassLike {
 
 func Note(
 	delimiter string,
-	comment string,
+	description string,
 ) NoteLike {
 	return NoteClass().Note(
 		delimiter,
-		comment,
+		description,
 	)
 }
 

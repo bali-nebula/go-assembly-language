@@ -52,13 +52,13 @@ func (v *processor_) GetClass() ProcessorClassLike {
 
 // Methodical Methods
 
-func (v *processor_) ProcessComment(
-	comment string,
+func (v *processor_) ProcessDelimiter(
+	delimiter string,
 ) {
 }
 
-func (v *processor_) ProcessDelimiter(
-	delimiter string,
+func (v *processor_) ProcessDescription(
+	description string,
 ) {
 }
 

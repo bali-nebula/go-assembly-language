@@ -539,8 +539,8 @@ func (v *visitor_) visitNote(
 		1,
 	)
 
-	var comment = note.GetComment()
-	v.processor_.ProcessComment(comment)
+	var description = note.GetDescription()
+	v.processor_.ProcessDescription(description)
 }
 
 func (v *visitor_) visitPrefix(

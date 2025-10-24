@@ -62,10 +62,10 @@ func (v *validator_) ValidateAssembly(
 
 // Methodical Methods
 
-func (v *validator_) ProcessComment(
-	comment string,
+func (v *validator_) ProcessDescription(
+	description string,
 ) {
-	v.validateToken(comment, CommentToken)
+	v.validateToken(description, DescriptionToken)
 }
 
 func (v *validator_) ProcessLabel(

@@ -57,8 +57,8 @@ type TokenType uint8
 
 const (
 	ErrorToken TokenType = iota
-	CommentToken
 	DelimiterToken
+	DescriptionToken
 	LabelToken
 	NewlineToken
 	QuotedToken
@@ -274,11 +274,11 @@ Methodical declares the set of method signatures that must be supported by
 all methodical processors.
 */
 type Methodical interface {
-	ProcessComment(
-		comment string,
-	)
 	ProcessDelimiter(
 		delimiter string,
+	)
+	ProcessDescription(
+		description string,
 	)
 	ProcessLabel(
 		label string,

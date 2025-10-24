@@ -202,7 +202,7 @@ loop:
 	for v.next_ < uti.ArraySize(v.runes_) {
 		switch {
 		// Find the next token type.
-		case v.foundToken(CommentToken):
+		case v.foundToken(DescriptionToken):
 		case v.foundToken(LabelToken):
 		case v.foundToken(QuotedToken):
 		case v.foundToken(SymbolToken):
@@ -248,26 +248,26 @@ var scannerClassReference_ = &scannerClass_{
 	tokens_: fra.CatalogFromMap[TokenType, string](
 		map[TokenType]string{
 			// Define token identifiers for each type of expression.
-			ErrorToken:     "error",
-			CommentToken:   "comment",
-			DelimiterToken: "delimiter",
-			LabelToken:     "label",
-			NewlineToken:   "newline",
-			QuotedToken:    "quoted",
-			SpaceToken:     "space",
-			SymbolToken:    "symbol",
+			ErrorToken:       "error",
+			DelimiterToken:   "delimiter",
+			DescriptionToken: "description",
+			LabelToken:       "label",
+			NewlineToken:     "newline",
+			QuotedToken:      "quoted",
+			SpaceToken:       "space",
+			SymbolToken:      "symbol",
 		},
 	),
 	matchers_: fra.CatalogFromMap[TokenType, *reg.Regexp](
 		map[TokenType]*reg.Regexp{
 			// Define pattern matchers for each type of expression.
-			CommentToken:   reg.MustCompile("^" + comment_),
-			DelimiterToken: reg.MustCompile("^" + delimiter_),
-			LabelToken:     reg.MustCompile("^" + label_),
-			NewlineToken:   reg.MustCompile("^" + newline_),
-			QuotedToken:    reg.MustCompile("^" + quoted_),
-			SpaceToken:     reg.MustCompile("^" + space_),
-			SymbolToken:    reg.MustCompile("^" + symbol_),
+			DelimiterToken:   reg.MustCompile("^" + delimiter_),
+			DescriptionToken: reg.MustCompile("^" + description_),
+			LabelToken:       reg.MustCompile("^" + label_),
+			NewlineToken:     reg.MustCompile("^" + newline_),
+			QuotedToken:      reg.MustCompile("^" + quoted_),
+			SpaceToken:       reg.MustCompile("^" + space_),
+			SymbolToken:      reg.MustCompile("^" + symbol_),
 		},
 	),
 }
@@ -291,13 +291,13 @@ const (
 	upper_   = "\\p{Lu}"
 
 	// Define the regular expressions for each expression type.
-	comment_    = "(?:--[^" + control_ + "]*)"
-	delimiter_  = "(?:WITH ARGUMENTS|WITH 3 ARGUMENTS|WITH 2 ARGUMENTS|WITH 1 ARGUMENT|VARIABLE|TO|SKIP|SEND|SAVE|RESULT|PUSH|PULL|ON NONE|ON FALSE|ON EMPTY|NOTE|MESSAGE|LOAD|LITERAL|JUMP TO|HANDLER|EXCEPTION|DROP|DRAFT|DOCUMENT|CONSTANT|COMPONENT|CALL|ARGUMENT|:)"
-	identifier_ = "(?:(" + lower_ + "|" + upper_ + ")(" + digit_ + "|" + lower_ + "|" + upper_ + ")*)"
-	label_      = "(?:((?:" + ordinal_ + ")\\.)+(?:" + identifier_ + "))"
-	newline_    = "(?:" + eol_ + ")"
-	ordinal_    = "(?:[1-9]" + digit_ + "*)"
-	quoted_     = "(?:`(\\\\`|[^`])+`)"
-	space_      = "(?:[ \\t]+)"
-	symbol_     = "(?:\\$(?:" + identifier_ + ")(-(?:" + ordinal_ + "))?)"
+	delimiter_   = "(?:WITH ARGUMENTS|WITH 3 ARGUMENTS|WITH 2 ARGUMENTS|WITH 1 ARGUMENT|VARIABLE|TO|SKIP|SEND|SAVE|RESULT|PUSH|PULL|ON NONE|ON FALSE|ON EMPTY|NOTE|MESSAGE|LOAD|LITERAL|JUMP TO|HANDLER|EXCEPTION|DROP|DRAFT|DOCUMENT|CONSTANT|COMPONENT|CALL|ARGUMENT|:)"
+	description_ = "(?:! [^" + control_ + "]*)"
+	identifier_  = "(?:(" + lower_ + "|" + upper_ + ")(" + digit_ + "|" + lower_ + "|" + upper_ + ")*)"
+	label_       = "(?:((?:" + ordinal_ + ")\\.)+(?:" + identifier_ + "))"
+	newline_     = "(?:" + eol_ + ")"
+	ordinal_     = "(?:[1-9]" + digit_ + "*)"
+	quoted_      = "(?:`(\\\\`|[^`])+`)"
+	space_       = "(?:[ \\t]+)"
+	symbol_      = "(?:\\$(?:" + identifier_ + ")(-(?:" + ordinal_ + "))?)"
 )

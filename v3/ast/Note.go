@@ -37,18 +37,18 @@ func NoteClass() NoteClassLike {
 
 func (c *noteClass_) Note(
 	delimiter string,
-	comment string,
+	description string,
 ) NoteLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(comment) {
-		panic("The \"comment\" attribute is required by this class.")
+	if uti.IsUndefined(description) {
+		panic("The \"description\" attribute is required by this class.")
 	}
 	var instance = &note_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
-		comment_:   comment,
+		delimiter_:   delimiter,
+		description_: description,
 	}
 	return instance
 }
@@ -67,8 +67,8 @@ func (v *note_) GetDelimiter() string {
 	return v.delimiter_
 }
 
-func (v *note_) GetComment() string {
-	return v.comment_
+func (v *note_) GetDescription() string {
+	return v.description_
 }
 
 // PROTECTED INTERFACE
@@ -77,8 +77,8 @@ func (v *note_) GetComment() string {
 
 type note_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
-	comment_   string
+	delimiter_   string
+	description_ string
 }
 
 // Class Structure

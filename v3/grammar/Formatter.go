@@ -61,16 +61,16 @@ func (v *formatter_) FormatAssembly(assembly ast.AssemblyLike) string {
 
 // Methodical Methods
 
-func (v *formatter_) ProcessComment(
-	comment string,
-) {
-	v.appendString(comment)
-}
-
 func (v *formatter_) ProcessDelimiter(
 	delimiter string,
 ) {
 	v.appendString(delimiter)
+}
+
+func (v *formatter_) ProcessDescription(
+	description string,
+) {
+	v.appendString(description)
 }
 
 func (v *formatter_) ProcessLabel(

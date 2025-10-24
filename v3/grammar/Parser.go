@@ -942,12 +942,12 @@ func (v *parser_) parseNote() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single comment token.
-	var comment string
-	comment, token, ok = v.parseToken(CommentToken)
+	// Attempt to parse a single description token.
+	var description string
+	description, token, ok = v.parseToken(DescriptionToken)
 	if !ok {
 		if uti.IsDefined(tokens) {
-			// This is not a single comment token.
+			// This is not a single description token.
 			v.putBack(tokens)
 			return
 		} else {
@@ -965,7 +965,7 @@ func (v *parser_) parseNote() (
 	v.remove(tokens)
 	note = ast.NoteClass().Note(
 		delimiter,
-		comment,
+		description,
 	)
 	return
 }
@@ -1612,7 +1612,7 @@ var parserClassReference_ = &parserClass_{
     Drop
     Call
     Send`,
-			"$Note": `"NOTE" comment`,
+			"$Note": `"NOTE" description`,
 			"$Skip": `"SKIP"`,
 			"$Jump": `"JUMP TO" label Conditionally?`,
 			"$Conditionally": `

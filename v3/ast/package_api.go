@@ -261,7 +261,7 @@ type NoteClassLike interface {
 	// Constructor Methods
 	Note(
 		delimiter string,
-		comment string,
+		description string,
 	) NoteLike
 }
 
@@ -604,7 +604,7 @@ type NoteLike interface {
 
 	// Attribute Methods
 	GetDelimiter() string
-	GetComment() string
+	GetDescription() string
 }
 
 /*
