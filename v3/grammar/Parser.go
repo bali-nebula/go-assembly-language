@@ -24,8 +24,8 @@ package grammar
 import (
 	fmt "fmt"
 	ast "github.com/bali-nebula/go-assembly-language/v3/ast"
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 	mat "math"
 	sts "strings"
 )
@@ -59,8 +59,8 @@ func (v *parser_) ParseSource(
 	source string,
 ) ast.AssemblyLike {
 	v.source_ = sts.ReplaceAll(source, "\t", "    ")
-	v.tokens_ = fra.Queue[TokenLike]()
-	v.next_ = fra.Stack[TokenLike]()
+	v.tokens_ = com.Queue[TokenLike]()
+	v.next_ = com.Stack[TokenLike]()
 
 	// The scanner runs in a separate Go routine.
 	ScannerClass().Scanner(v.source_, v.tokens_)
@@ -182,7 +182,7 @@ func (v *parser_) parseArgument() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "ARGUMENT" literal.
 	var delimiter string
@@ -235,10 +235,10 @@ func (v *parser_) parseAssembly() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse multiple Instruction rules.
-	var instructions = fra.List[ast.InstructionLike]()
+	var instructions = com.List[ast.InstructionLike]()
 instructionsLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var instruction ast.InstructionLike
@@ -275,7 +275,7 @@ func (v *parser_) parseCall() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "CALL" literal.
 	var delimiter string
@@ -452,7 +452,7 @@ func (v *parser_) parseConstant() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "CONSTANT" literal.
 	var delimiter string
@@ -505,7 +505,7 @@ func (v *parser_) parseContext() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "WITH ARGUMENTS" literal.
 	var delimiter string
@@ -564,7 +564,7 @@ func (v *parser_) parseDrop() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "DROP" literal.
 	var delimiter string
@@ -637,7 +637,7 @@ func (v *parser_) parseHandler() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "HANDLER" literal.
 	var delimiter string
@@ -690,7 +690,7 @@ func (v *parser_) parseInstruction() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse an optional Prefix rule.
 	var optionalPrefix ast.PrefixLike
@@ -732,7 +732,7 @@ func (v *parser_) parseJump() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "JUMP TO" literal.
 	var delimiter string
@@ -796,7 +796,7 @@ func (v *parser_) parseLiteral() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "LITERAL" literal.
 	var delimiter string
@@ -849,7 +849,7 @@ func (v *parser_) parseLoad() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "LOAD" literal.
 	var delimiter string
@@ -922,7 +922,7 @@ func (v *parser_) parseNote() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "NOTE" literal.
 	var delimiter string
@@ -975,7 +975,7 @@ func (v *parser_) parsePrefix() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single label token.
 	var label string
@@ -1028,7 +1028,7 @@ func (v *parser_) parsePull() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "PULL" literal.
 	var delimiter string
@@ -1082,7 +1082,7 @@ func (v *parser_) parsePush() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "PUSH" literal.
 	var delimiter string
@@ -1134,7 +1134,7 @@ func (v *parser_) parseSave() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "SAVE" literal.
 	var delimiter string
@@ -1207,7 +1207,7 @@ func (v *parser_) parseSend() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "SEND" literal.
 	var delimiter1 string
@@ -1308,7 +1308,7 @@ func (v *parser_) parseSkip() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "SKIP" literal.
 	var delimiter string
@@ -1453,7 +1453,7 @@ func (v *parser_) parseToken(
 	ok bool,
 ) {
 	// Attempt to parse a specific token type.
-	var tokens = fra.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 	token = v.getNextToken()
 	for token != nil {
 		tokens.AppendValue(token)
@@ -1554,7 +1554,7 @@ func (v *parser_) getNextToken() TokenLike {
 }
 
 func (v *parser_) putBack(
-	tokens fra.Sequential[TokenLike],
+	tokens com.Sequential[TokenLike],
 ) {
 	var iterator = tokens.GetIterator()
 	for iterator.ToEnd(); iterator.HasPrevious(); {
@@ -1568,7 +1568,7 @@ func (v *parser_) putBack(
 // generated parser code.  The generated code must call this method is some
 // cases to make it look that the tokens variable is being used somewhere.
 func (v *parser_) remove(
-	tokens fra.Sequential[TokenLike],
+	tokens com.Sequential[TokenLike],
 ) {
 }
 
@@ -1577,15 +1577,15 @@ func (v *parser_) remove(
 type parser_ struct {
 	// Declare the instance attributes.
 	source_ string                   // The original source code.
-	tokens_ fra.QueueLike[TokenLike] // A queue of unread tokens from the scanner.
-	next_   fra.StackLike[TokenLike] // A stack of read, but unprocessed tokens.
+	tokens_ com.QueueLike[TokenLike] // A queue of unread tokens from the scanner.
+	next_   com.StackLike[TokenLike] // A stack of read, but unprocessed tokens.
 }
 
 // Class Structure
 
 type parserClass_ struct {
 	// Declare the class constants.
-	syntax_ fra.CatalogLike[string, string]
+	syntax_ com.CatalogLike[string, string]
 }
 
 // Class Reference
@@ -1596,7 +1596,7 @@ func parserClass() *parserClass_ {
 
 var parserClassReference_ = &parserClass_{
 	// Initialize the class constants.
-	syntax_: fra.CatalogFromMap[string, string](
+	syntax_: com.CatalogFromMap[string, string](
 		map[string]string{
 			"$Assembly":    `Instruction+`,
 			"$Instruction": `Prefix? Action`,

@@ -22,8 +22,8 @@
 package ast
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -37,7 +37,7 @@ func AssemblyClass() AssemblyClassLike {
 // Constructor Methods
 
 func (c *assemblyClass_) Assembly(
-	instructions fra.Sequential[InstructionLike],
+	instructions com.Sequential[InstructionLike],
 ) AssemblyLike {
 	if uti.IsUndefined(instructions) {
 		panic("The \"instructions\" attribute is required by this class.")
@@ -59,7 +59,7 @@ func (v *assembly_) GetClass() AssemblyClassLike {
 
 // Attribute Methods
 
-func (v *assembly_) GetInstructions() fra.Sequential[InstructionLike] {
+func (v *assembly_) GetInstructions() com.Sequential[InstructionLike] {
 	return v.instructions_
 }
 
@@ -69,7 +69,7 @@ func (v *assembly_) GetInstructions() fra.Sequential[InstructionLike] {
 
 type assembly_ struct {
 	// Declare the instance attributes.
-	instructions_ fra.Sequential[InstructionLike]
+	instructions_ com.Sequential[InstructionLike]
 }
 
 // Class Structure
