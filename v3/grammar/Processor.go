@@ -247,26 +247,6 @@ func (v *processor_) ProcessConstantSlot(
 ) {
 }
 
-func (v *processor_) PreprocessContext(
-	context ast.ContextLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessContext(
-	context ast.ContextLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessContextSlot(
-	context ast.ContextLike,
-	slot_ uint,
-) {
-}
-
 func (v *processor_) PreprocessDestination(
 	destination ast.DestinationLike,
 	index_ uint,

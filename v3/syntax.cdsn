@@ -94,13 +94,11 @@ $Cardinality:
     "WITH 2 ARGUMENTS"
     "WITH 3 ARGUMENTS"
 
-$Send: "SEND" symbol "TO" Destination Context?
+$Send: "SEND" symbol "TO" Destination "WITH ARGUMENTS"?
 
 $Destination:
     "COMPONENT"
     "DOCUMENT"
-
-$Context: "WITH ARGUMENTS"
 
 !>
 ┌──────────────────────────────────────────────────────────────────────────────┐

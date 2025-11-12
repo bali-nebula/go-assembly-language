@@ -340,13 +340,6 @@ func (v *visitor_) visitConstant(
 	v.processor_.ProcessSymbol(symbol)
 }
 
-func (v *visitor_) visitContext(
-	context ast.ContextLike,
-) {
-	var delimiter = context.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-}
-
 func (v *visitor_) visitDestination(
 	destination ast.DestinationLike,
 ) {
@@ -686,19 +679,9 @@ func (v *visitor_) visitSend(
 		4,
 	)
 
-	var optionalContext = send.GetOptionalContext()
-	if uti.IsDefined(optionalContext) {
-		v.processor_.PreprocessContext(
-			optionalContext,
-			0,
-			0,
-		)
-		v.visitContext(optionalContext)
-		v.processor_.PostprocessContext(
-			optionalContext,
-			0,
-			0,
-		)
+	var optionalDelimiter = send.GetOptionalDelimiter()
+	if uti.IsDefined(optionalDelimiter) {
+		v.processor_.ProcessDelimiter(optionalDelimiter)
 	}
 }
 

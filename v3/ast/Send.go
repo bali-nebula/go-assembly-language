@@ -40,7 +40,7 @@ func (c *sendClass_) Send(
 	symbol string,
 	delimiter2 string,
 	destination DestinationLike,
-	optionalContext ContextLike,
+	optionalDelimiter string,
 ) SendLike {
 	if uti.IsUndefined(delimiter1) {
 		panic("The \"delimiter1\" attribute is required by this class.")
@@ -56,11 +56,11 @@ func (c *sendClass_) Send(
 	}
 	var instance = &send_{
 		// Initialize the instance attributes.
-		delimiter1_:      delimiter1,
-		symbol_:          symbol,
-		delimiter2_:      delimiter2,
-		destination_:     destination,
-		optionalContext_: optionalContext,
+		delimiter1_:        delimiter1,
+		symbol_:            symbol,
+		delimiter2_:        delimiter2,
+		destination_:       destination,
+		optionalDelimiter_: optionalDelimiter,
 	}
 	return instance
 }
@@ -91,8 +91,8 @@ func (v *send_) GetDestination() DestinationLike {
 	return v.destination_
 }
 
-func (v *send_) GetOptionalContext() ContextLike {
-	return v.optionalContext_
+func (v *send_) GetOptionalDelimiter() string {
+	return v.optionalDelimiter_
 }
 
 // PROTECTED INTERFACE
@@ -101,11 +101,11 @@ func (v *send_) GetOptionalContext() ContextLike {
 
 type send_ struct {
 	// Declare the instance attributes.
-	delimiter1_      string
-	symbol_          string
-	delimiter2_      string
-	destination_     DestinationLike
-	optionalContext_ ContextLike
+	delimiter1_        string
+	symbol_            string
+	delimiter2_        string
+	destination_       DestinationLike
+	optionalDelimiter_ string
 }
 
 // Class Structure

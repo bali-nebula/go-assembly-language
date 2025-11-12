@@ -407,20 +407,6 @@ type Methodical interface {
 		constant ast.ConstantLike,
 		slot_ uint,
 	)
-	PreprocessContext(
-		context ast.ContextLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessContext(
-		context ast.ContextLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessContextSlot(
-		context ast.ContextLike,
-		slot_ uint,
-	)
 	PreprocessDestination(
 		destination ast.DestinationLike,
 		index_ uint,

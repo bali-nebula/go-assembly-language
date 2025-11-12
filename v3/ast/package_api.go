@@ -148,18 +148,6 @@ type ConstantClassLike interface {
 }
 
 /*
-ContextClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete context-like class.
-*/
-type ContextClassLike interface {
-	// Constructor Methods
-	Context(
-		delimiter string,
-	) ContextLike
-}
-
-/*
 DestinationClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete destination-like class.
@@ -330,7 +318,7 @@ type SendClassLike interface {
 		symbol string,
 		delimiter2 string,
 		destination DestinationLike,
-		optionalContext ContextLike,
+		optionalDelimiter string,
 	) SendLike
 }
 
@@ -478,19 +466,6 @@ type ConstantLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetSymbol() string
-}
-
-/*
-ContextLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete context-like class.
-*/
-type ContextLike interface {
-	// Principal Methods
-	GetClass() ContextClassLike
-
-	// Attribute Methods
-	GetDelimiter() string
 }
 
 /*
@@ -678,7 +653,7 @@ type SendLike interface {
 	GetSymbol() string
 	GetDelimiter2() string
 	GetDestination() DestinationLike
-	GetOptionalContext() ContextLike
+	GetOptionalDelimiter() string
 }
 
 /*

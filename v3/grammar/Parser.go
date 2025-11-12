@@ -500,38 +500,6 @@ func (v *parser_) parseConstant() (
 	return
 }
 
-func (v *parser_) parseContext() (
-	context ast.ContextLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = com.List[TokenLike]()
-
-	// Attempt to parse a single "WITH ARGUMENTS" literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("WITH ARGUMENTS")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Context rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Context", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single Context rule.
-	ok = true
-	v.remove(tokens)
-	context = ast.ContextClass().Context(delimiter)
-	return
-}
-
 func (v *parser_) parseDestination() (
 	destination ast.DestinationLike,
 	token TokenLike,
@@ -1282,12 +1250,15 @@ func (v *parser_) parseSend() (
 		panic(message)
 	}
 
-	// Attempt to parse an optional Context rule.
-	var optionalContext ast.ContextLike
-	optionalContext, _, ok = v.parseContext()
+	// Attempt to parse an optional "WITH ARGUMENTS" literal.
+	var optionalDelimiter string
+	optionalDelimiter, token, ok = v.parseDelimiter("WITH ARGUMENTS")
 	if ok {
-		// No additional put backs allowed at this point.
-		tokens = nil
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	} else {
+		optionalDelimiter = "" // Reset this to undefined.
 	}
 
 	// Found a single Send rule.
@@ -1298,7 +1269,7 @@ func (v *parser_) parseSend() (
 		symbol,
 		delimiter2,
 		destination,
-		optionalContext,
+		optionalDelimiter,
 	)
 	return
 }
@@ -1648,11 +1619,10 @@ var parserClassReference_ = &parserClass_{
     "WITH 1 ARGUMENT"
     "WITH 2 ARGUMENTS"
     "WITH 3 ARGUMENTS"`,
-			"$Send": `"SEND" symbol "TO" Destination Context?`,
+			"$Send": `"SEND" symbol "TO" Destination "WITH ARGUMENTS"?`,
 			"$Destination": `
     "COMPONENT"
     "DOCUMENT"`,
-			"$Context": `"WITH ARGUMENTS"`,
 		},
 	),
 }

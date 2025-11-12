@@ -49,7 +49,6 @@ type (
 	ComponentClassLike     = ast.ComponentClassLike
 	ConditionallyClassLike = ast.ConditionallyClassLike
 	ConstantClassLike      = ast.ConstantClassLike
-	ContextClassLike       = ast.ContextClassLike
 	DestinationClassLike   = ast.DestinationClassLike
 	DropClassLike          = ast.DropClassLike
 	HandlerClassLike       = ast.HandlerClassLike
@@ -77,7 +76,6 @@ type (
 	ComponentLike     = ast.ComponentLike
 	ConditionallyLike = ast.ConditionallyLike
 	ConstantLike      = ast.ConstantLike
-	ContextLike       = ast.ContextLike
 	DestinationLike   = ast.DestinationLike
 	DropLike          = ast.DropLike
 	HandlerLike       = ast.HandlerLike
@@ -242,18 +240,6 @@ func Constant(
 	return ConstantClass().Constant(
 		delimiter,
 		symbol,
-	)
-}
-
-func ContextClass() ContextClassLike {
-	return ast.ContextClass()
-}
-
-func Context(
-	delimiter string,
-) ContextLike {
-	return ContextClass().Context(
-		delimiter,
 	)
 }
 
@@ -440,14 +426,14 @@ func Send(
 	symbol string,
 	delimiter2 string,
 	destination ast.DestinationLike,
-	optionalContext ast.ContextLike,
+	optionalDelimiter string,
 ) SendLike {
 	return SendClass().Send(
 		delimiter1,
 		symbol,
 		delimiter2,
 		destination,
-		optionalContext,
+		optionalDelimiter,
 	)
 }
 
