@@ -291,7 +291,7 @@ const (
 	upper_   = "\\p{Lu}"
 
 	// Define the regular expressions for each expression type.
-	delimiter_   = "(?:WITH ARGUMENTS|WITH 3 ARGUMENTS|WITH 2 ARGUMENTS|WITH 1 ARGUMENT|VARIABLE|TO|SKIP|SEND|SAVE|RESULT|PUSH|PULL|ON NONE|ON FALSE|ON EMPTY|NOTE|MESSAGE|LOAD|LITERAL|JUMP TO|HANDLER|EXCEPTION|DROP|DRAFT|DOCUMENT|CONSTANT|COMPONENT|CALL|ARGUMENT|:)"
+	delimiter_   = "(?:WITH 3 ARGUMENTS|WITH 2 ARGUMENTS|WITH 1 ARGUMENT|VARIABLE|TO|SKIP|SEND|SAVE|RESULT|PUSH|PULL|ON NONE|ON FALSE|ON EMPTY|NOTE|MESSAGE|LOAD|LITERAL|JUMP TO|HANDLER|EXCEPTION|DROP|DRAFT|DOCUMENT WITH ARGUMENTS|DOCUMENT|CONSTANT|COMPONENT WITH ARGUMENTS|COMPONENT|CALL|ARGUMENT|:)"
 	description_ = "(?:! [^" + control_ + "]*)"
 	identifier_  = "(?:(" + lower_ + "|" + upper_ + ")(" + digit_ + "|" + lower_ + "|" + upper_ + ")*)"
 	label_       = "(?:((?:" + ordinal_ + ")\\.)+(?:" + identifier_ + "))"

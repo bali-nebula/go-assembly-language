@@ -515,10 +515,26 @@ func (v *parser_) parseDestination() (
 		return
 	}
 
+	// Attempt to parse a single "COMPONENT WITH ARGUMENTS" delimiter.
+	delimiter, token, ok = v.parseDelimiter("COMPONENT WITH ARGUMENTS")
+	if ok {
+		// Found a single "COMPONENT WITH ARGUMENTS" delimiter.
+		destination = ast.DestinationClass().Destination(delimiter)
+		return
+	}
+
 	// Attempt to parse a single "DOCUMENT" delimiter.
 	delimiter, token, ok = v.parseDelimiter("DOCUMENT")
 	if ok {
 		// Found a single "DOCUMENT" delimiter.
+		destination = ast.DestinationClass().Destination(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "DOCUMENT WITH ARGUMENTS" delimiter.
+	delimiter, token, ok = v.parseDelimiter("DOCUMENT WITH ARGUMENTS")
+	if ok {
+		// Found a single "DOCUMENT WITH ARGUMENTS" delimiter.
 		destination = ast.DestinationClass().Destination(delimiter)
 		return
 	}
@@ -1250,17 +1266,6 @@ func (v *parser_) parseSend() (
 		panic(message)
 	}
 
-	// Attempt to parse an optional "WITH ARGUMENTS" literal.
-	var optionalDelimiter string
-	optionalDelimiter, token, ok = v.parseDelimiter("WITH ARGUMENTS")
-	if ok {
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	} else {
-		optionalDelimiter = "" // Reset this to undefined.
-	}
-
 	// Found a single Send rule.
 	ok = true
 	v.remove(tokens)
@@ -1269,7 +1274,6 @@ func (v *parser_) parseSend() (
 		symbol,
 		delimiter2,
 		destination,
-		optionalDelimiter,
 	)
 	return
 }
@@ -1619,10 +1623,12 @@ var parserClassReference_ = &parserClass_{
     "WITH 1 ARGUMENT"
     "WITH 2 ARGUMENTS"
     "WITH 3 ARGUMENTS"`,
-			"$Send": `"SEND" symbol "TO" Destination "WITH ARGUMENTS"?`,
+			"$Send": `"SEND" symbol "TO" Destination`,
 			"$Destination": `
     "COMPONENT"
-    "DOCUMENT"`,
+    "COMPONENT WITH ARGUMENTS"
+    "DOCUMENT"
+    "DOCUMENT WITH ARGUMENTS"`,
 		},
 	),
 }

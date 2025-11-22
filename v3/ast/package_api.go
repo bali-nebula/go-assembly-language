@@ -318,7 +318,6 @@ type SendClassLike interface {
 		symbol string,
 		delimiter2 string,
 		destination DestinationLike,
-		optionalDelimiter string,
 	) SendLike
 }
 
@@ -653,7 +652,6 @@ type SendLike interface {
 	GetSymbol() string
 	GetDelimiter2() string
 	GetDestination() DestinationLike
-	GetOptionalDelimiter() string
 }
 
 /*

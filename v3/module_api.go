@@ -426,14 +426,12 @@ func Send(
 	symbol string,
 	delimiter2 string,
 	destination ast.DestinationLike,
-	optionalDelimiter string,
 ) SendLike {
 	return SendClass().Send(
 		delimiter1,
 		symbol,
 		delimiter2,
 		destination,
-		optionalDelimiter,
 	)
 }
 

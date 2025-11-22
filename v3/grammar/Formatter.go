@@ -23,7 +23,6 @@ package grammar
 
 import (
 	ast "github.com/bali-nebula/go-assembly-language/v3/ast"
-	uti "github.com/craterdog/go-essential-utilities/v8"
 	sts "strings"
 )
 
@@ -245,14 +244,7 @@ func (v *formatter_) ProcessSendSlot(
 	send ast.SendLike,
 	slot_ uint,
 ) {
-	switch slot_ {
-	case 1, 2, 3:
-		v.appendString(" ")
-	case 4:
-		if uti.IsDefined(send.GetOptionalDelimiter()) {
-			v.appendString(" ")
-		}
-	}
+	v.appendString(" ")
 }
 
 const _indentation = "    "

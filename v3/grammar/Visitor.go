@@ -348,8 +348,12 @@ func (v *visitor_) visitDestination(
 	switch actual {
 	case "COMPONENT":
 		v.processor_.ProcessDelimiter("COMPONENT")
+	case "COMPONENT WITH ARGUMENTS":
+		v.processor_.ProcessDelimiter("COMPONENT WITH ARGUMENTS")
 	case "DOCUMENT":
 		v.processor_.ProcessDelimiter("DOCUMENT")
+	case "DOCUMENT WITH ARGUMENTS":
+		v.processor_.ProcessDelimiter("DOCUMENT WITH ARGUMENTS")
 	}
 }
 
@@ -673,16 +677,6 @@ func (v *visitor_) visitSend(
 		0,
 		0,
 	)
-	// Visit slot 4 between terms.
-	v.processor_.ProcessSendSlot(
-		send,
-		4,
-	)
-
-	var optionalDelimiter = send.GetOptionalDelimiter()
-	if uti.IsDefined(optionalDelimiter) {
-		v.processor_.ProcessDelimiter(optionalDelimiter)
-	}
 }
 
 func (v *visitor_) visitSkip(
