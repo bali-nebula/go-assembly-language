@@ -120,21 +120,6 @@ func (v *formatter_) ProcessCallSlot(
 	}
 }
 
-func (v *formatter_) PreprocessCardinality(
-	cardinality ast.CardinalityLike,
-	index_ uint,
-	count_ uint,
-) {
-	v.appendString(" ")
-}
-
-func (v *formatter_) ProcessCardinalitySlot(
-	cardinality ast.CardinalityLike,
-	slot_ uint,
-) {
-	v.appendString(" ")
-}
-
 func (v *formatter_) PreprocessConditionally(
 	conditionally ast.ConditionallyLike,
 	index_ uint,
@@ -145,6 +130,21 @@ func (v *formatter_) PreprocessConditionally(
 
 func (v *formatter_) ProcessConstantSlot(
 	constant ast.ConstantLike,
+	slot_ uint,
+) {
+	v.appendString(" ")
+}
+
+func (v *formatter_) PreprocessContext(
+	cardinality ast.ContextLike,
+	index_ uint,
+	count_ uint,
+) {
+	v.appendString(" ")
+}
+
+func (v *formatter_) ProcessContextSlot(
+	cardinality ast.ContextLike,
 	slot_ uint,
 ) {
 	v.appendString(" ")

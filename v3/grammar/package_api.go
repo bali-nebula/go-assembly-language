@@ -351,20 +351,6 @@ type Methodical interface {
 		call ast.CallLike,
 		slot_ uint,
 	)
-	PreprocessCardinality(
-		cardinality ast.CardinalityLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessCardinality(
-		cardinality ast.CardinalityLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessCardinalitySlot(
-		cardinality ast.CardinalityLike,
-		slot_ uint,
-	)
 	PreprocessComponent(
 		component ast.ComponentLike,
 		index_ uint,
@@ -405,6 +391,20 @@ type Methodical interface {
 	)
 	ProcessConstantSlot(
 		constant ast.ConstantLike,
+		slot_ uint,
+	)
+	PreprocessContext(
+		context ast.ContextLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessContext(
+		context ast.ContextLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessContextSlot(
+		context ast.ContextLike,
 		slot_ uint,
 	)
 	PreprocessDestination(

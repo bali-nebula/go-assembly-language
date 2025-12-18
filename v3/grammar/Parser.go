@@ -313,9 +313,9 @@ func (v *parser_) parseCall() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse an optional Cardinality rule.
-	var optionalCardinality ast.CardinalityLike
-	optionalCardinality, token, ok = v.parseCardinality()
+	// Attempt to parse an optional Context rule.
+	var optionalContext ast.ContextLike
+	optionalContext, token, ok = v.parseContext()
 	if ok {
 		// Found a multiexpression token.
 		if uti.IsDefined(tokens) {
@@ -329,43 +329,8 @@ func (v *parser_) parseCall() (
 	call = ast.CallClass().Call(
 		delimiter,
 		symbol,
-		optionalCardinality,
+		optionalContext,
 	)
-	return
-}
-
-func (v *parser_) parseCardinality() (
-	cardinality ast.CardinalityLike,
-	token TokenLike,
-	ok bool,
-) {
-	var delimiter string
-
-	// Attempt to parse a single "WITH 1 ARGUMENT" delimiter.
-	delimiter, token, ok = v.parseDelimiter("WITH 1 ARGUMENT")
-	if ok {
-		// Found a single "WITH 1 ARGUMENT" delimiter.
-		cardinality = ast.CardinalityClass().Cardinality(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "WITH 2 ARGUMENTS" delimiter.
-	delimiter, token, ok = v.parseDelimiter("WITH 2 ARGUMENTS")
-	if ok {
-		// Found a single "WITH 2 ARGUMENTS" delimiter.
-		cardinality = ast.CardinalityClass().Cardinality(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "WITH 3 ARGUMENTS" delimiter.
-	delimiter, token, ok = v.parseDelimiter("WITH 3 ARGUMENTS")
-	if ok {
-		// Found a single "WITH 3 ARGUMENTS" delimiter.
-		cardinality = ast.CardinalityClass().Cardinality(delimiter)
-		return
-	}
-
-	// This is not a single Cardinality rule.
 	return
 }
 
@@ -497,6 +462,41 @@ func (v *parser_) parseConstant() (
 		delimiter,
 		symbol,
 	)
+	return
+}
+
+func (v *parser_) parseContext() (
+	context ast.ContextLike,
+	token TokenLike,
+	ok bool,
+) {
+	var delimiter string
+
+	// Attempt to parse a single "WITH 1 ARGUMENT" delimiter.
+	delimiter, token, ok = v.parseDelimiter("WITH 1 ARGUMENT")
+	if ok {
+		// Found a single "WITH 1 ARGUMENT" delimiter.
+		context = ast.ContextClass().Context(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "WITH 2 ARGUMENTS" delimiter.
+	delimiter, token, ok = v.parseDelimiter("WITH 2 ARGUMENTS")
+	if ok {
+		// Found a single "WITH 2 ARGUMENTS" delimiter.
+		context = ast.ContextClass().Context(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "WITH 3 ARGUMENTS" delimiter.
+	delimiter, token, ok = v.parseDelimiter("WITH 3 ARGUMENTS")
+	if ok {
+		// Found a single "WITH 3 ARGUMENTS" delimiter.
+		context = ast.ContextClass().Context(delimiter)
+		return
+	}
+
+	// This is not a single Context rule.
 	return
 }
 
@@ -1618,8 +1618,8 @@ var parserClassReference_ = &parserClass_{
     "DOCUMENT"
     "MESSAGE"
     "VARIABLE"`,
-			"$Call": `"CALL" symbol Cardinality?`,
-			"$Cardinality": `
+			"$Call": `"CALL" symbol Context?`,
+			"$Context": `
     "WITH 1 ARGUMENT"
     "WITH 2 ARGUMENTS"
     "WITH 3 ARGUMENTS"`,

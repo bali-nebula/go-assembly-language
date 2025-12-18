@@ -167,26 +167,6 @@ func (v *processor_) ProcessCallSlot(
 ) {
 }
 
-func (v *processor_) PreprocessCardinality(
-	cardinality ast.CardinalityLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessCardinality(
-	cardinality ast.CardinalityLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessCardinalitySlot(
-	cardinality ast.CardinalityLike,
-	slot_ uint,
-) {
-}
-
 func (v *processor_) PreprocessComponent(
 	component ast.ComponentLike,
 	index_ uint,
@@ -243,6 +223,26 @@ func (v *processor_) PostprocessConstant(
 
 func (v *processor_) ProcessConstantSlot(
 	constant ast.ConstantLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessContext(
+	context ast.ContextLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessContext(
+	context ast.ContextLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessContextSlot(
+	context ast.ContextLike,
 	slot_ uint,
 ) {
 }

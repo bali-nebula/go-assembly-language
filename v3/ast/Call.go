@@ -38,7 +38,7 @@ func CallClass() CallClassLike {
 func (c *callClass_) Call(
 	delimiter string,
 	symbol string,
-	optionalCardinality CardinalityLike,
+	optionalContext ContextLike,
 ) CallLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
@@ -48,9 +48,9 @@ func (c *callClass_) Call(
 	}
 	var instance = &call_{
 		// Initialize the instance attributes.
-		delimiter_:           delimiter,
-		symbol_:              symbol,
-		optionalCardinality_: optionalCardinality,
+		delimiter_:       delimiter,
+		symbol_:          symbol,
+		optionalContext_: optionalContext,
 	}
 	return instance
 }
@@ -73,8 +73,8 @@ func (v *call_) GetSymbol() string {
 	return v.symbol_
 }
 
-func (v *call_) GetOptionalCardinality() CardinalityLike {
-	return v.optionalCardinality_
+func (v *call_) GetOptionalContext() ContextLike {
+	return v.optionalContext_
 }
 
 // PROTECTED INTERFACE
@@ -83,9 +83,9 @@ func (v *call_) GetOptionalCardinality() CardinalityLike {
 
 type call_ struct {
 	// Declare the instance attributes.
-	delimiter_           string
-	symbol_              string
-	optionalCardinality_ CardinalityLike
+	delimiter_       string
+	symbol_          string
+	optionalContext_ ContextLike
 }
 
 // Class Structure

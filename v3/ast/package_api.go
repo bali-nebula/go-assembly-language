@@ -94,20 +94,8 @@ type CallClassLike interface {
 	Call(
 		delimiter string,
 		symbol string,
-		optionalCardinality CardinalityLike,
+		optionalContext ContextLike,
 	) CallLike
-}
-
-/*
-CardinalityClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete cardinality-like class.
-*/
-type CardinalityClassLike interface {
-	// Constructor Methods
-	Cardinality(
-		any_ any,
-	) CardinalityLike
 }
 
 /*
@@ -145,6 +133,18 @@ type ConstantClassLike interface {
 		delimiter string,
 		symbol string,
 	) ConstantLike
+}
+
+/*
+ContextClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete context-like class.
+*/
+type ContextClassLike interface {
+	// Constructor Methods
+	Context(
+		any_ any,
+	) ContextLike
 }
 
 /*
@@ -411,20 +411,7 @@ type CallLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetSymbol() string
-	GetOptionalCardinality() CardinalityLike
-}
-
-/*
-CardinalityLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete cardinality-like class.
-*/
-type CardinalityLike interface {
-	// Principal Methods
-	GetClass() CardinalityClassLike
-
-	// Attribute Methods
-	GetAny() any
+	GetOptionalContext() ContextLike
 }
 
 /*
@@ -465,6 +452,19 @@ type ConstantLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetSymbol() string
+}
+
+/*
+ContextLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete context-like class.
+*/
+type ContextLike interface {
+	// Principal Methods
+	GetClass() ContextClassLike
+
+	// Attribute Methods
+	GetAny() any
 }
 
 /*

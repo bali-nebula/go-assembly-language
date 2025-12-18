@@ -29,19 +29,19 @@ import (
 
 // Access Function
 
-func CardinalityClass() CardinalityClassLike {
-	return cardinalityClass()
+func ContextClass() ContextClassLike {
+	return contextClass()
 }
 
 // Constructor Methods
 
-func (c *cardinalityClass_) Cardinality(
+func (c *contextClass_) Context(
 	any_ any,
-) CardinalityLike {
+) ContextLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &cardinality_{
+	var instance = &context_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -52,13 +52,13 @@ func (c *cardinalityClass_) Cardinality(
 
 // Principal Methods
 
-func (v *cardinality_) GetClass() CardinalityClassLike {
-	return cardinalityClass()
+func (v *context_) GetClass() ContextClassLike {
+	return contextClass()
 }
 
 // Attribute Methods
 
-func (v *cardinality_) GetAny() any {
+func (v *context_) GetAny() any {
 	return v.any_
 }
 
@@ -66,23 +66,23 @@ func (v *cardinality_) GetAny() any {
 
 // Instance Structure
 
-type cardinality_ struct {
+type context_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type cardinalityClass_ struct {
+type contextClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func cardinalityClass() *cardinalityClass_ {
-	return cardinalityClassReference_
+func contextClass() *contextClass_ {
+	return contextClassReference_
 }
 
-var cardinalityClassReference_ = &cardinalityClass_{
+var contextClassReference_ = &contextClass_{
 	// Initialize the class constants.
 }

@@ -262,34 +262,19 @@ func (v *visitor_) visitCall(
 		2,
 	)
 
-	var optionalCardinality = call.GetOptionalCardinality()
-	if uti.IsDefined(optionalCardinality) {
-		v.processor_.PreprocessCardinality(
-			optionalCardinality,
+	var optionalContext = call.GetOptionalContext()
+	if uti.IsDefined(optionalContext) {
+		v.processor_.PreprocessContext(
+			optionalContext,
 			0,
 			0,
 		)
-		v.visitCardinality(optionalCardinality)
-		v.processor_.PostprocessCardinality(
-			optionalCardinality,
+		v.visitContext(optionalContext)
+		v.processor_.PostprocessContext(
+			optionalContext,
 			0,
 			0,
 		)
-	}
-}
-
-func (v *visitor_) visitCardinality(
-	cardinality ast.CardinalityLike,
-) {
-	// Visit the possible cardinality literal values.
-	var actual = cardinality.GetAny().(string)
-	switch actual {
-	case "WITH 1 ARGUMENT":
-		v.processor_.ProcessDelimiter("WITH 1 ARGUMENT")
-	case "WITH 2 ARGUMENTS":
-		v.processor_.ProcessDelimiter("WITH 2 ARGUMENTS")
-	case "WITH 3 ARGUMENTS":
-		v.processor_.ProcessDelimiter("WITH 3 ARGUMENTS")
 	}
 }
 
@@ -338,6 +323,21 @@ func (v *visitor_) visitConstant(
 
 	var symbol = constant.GetSymbol()
 	v.processor_.ProcessSymbol(symbol)
+}
+
+func (v *visitor_) visitContext(
+	context ast.ContextLike,
+) {
+	// Visit the possible context literal values.
+	var actual = context.GetAny().(string)
+	switch actual {
+	case "WITH 1 ARGUMENT":
+		v.processor_.ProcessDelimiter("WITH 1 ARGUMENT")
+	case "WITH 2 ARGUMENTS":
+		v.processor_.ProcessDelimiter("WITH 2 ARGUMENTS")
+	case "WITH 3 ARGUMENTS":
+		v.processor_.ProcessDelimiter("WITH 3 ARGUMENTS")
+	}
 }
 
 func (v *visitor_) visitDestination(

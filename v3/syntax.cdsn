@@ -87,9 +87,9 @@ $Component:
     "MESSAGE"
     "VARIABLE"
 
-$Call: "CALL" symbol Cardinality?
+$Call: "CALL" symbol Context?
 
-$Cardinality:
+$Context:
     "WITH 1 ARGUMENT"
     "WITH 2 ARGUMENTS"
     "WITH 3 ARGUMENTS"

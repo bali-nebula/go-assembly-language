@@ -45,10 +45,10 @@ type (
 	ArgumentClassLike      = ast.ArgumentClassLike
 	AssemblyClassLike      = ast.AssemblyClassLike
 	CallClassLike          = ast.CallClassLike
-	CardinalityClassLike   = ast.CardinalityClassLike
 	ComponentClassLike     = ast.ComponentClassLike
 	ConditionallyClassLike = ast.ConditionallyClassLike
 	ConstantClassLike      = ast.ConstantClassLike
+	ContextClassLike       = ast.ContextClassLike
 	DestinationClassLike   = ast.DestinationClassLike
 	DropClassLike          = ast.DropClassLike
 	HandlerClassLike       = ast.HandlerClassLike
@@ -72,10 +72,10 @@ type (
 	ArgumentLike      = ast.ArgumentLike
 	AssemblyLike      = ast.AssemblyLike
 	CallLike          = ast.CallLike
-	CardinalityLike   = ast.CardinalityLike
 	ComponentLike     = ast.ComponentLike
 	ConditionallyLike = ast.ConditionallyLike
 	ConstantLike      = ast.ConstantLike
+	ContextLike       = ast.ContextLike
 	DestinationLike   = ast.DestinationLike
 	DropLike          = ast.DropLike
 	HandlerLike       = ast.HandlerLike
@@ -184,24 +184,12 @@ func CallClass() CallClassLike {
 func Call(
 	delimiter string,
 	symbol string,
-	optionalCardinality ast.CardinalityLike,
+	optionalContext ast.ContextLike,
 ) CallLike {
 	return CallClass().Call(
 		delimiter,
 		symbol,
-		optionalCardinality,
-	)
-}
-
-func CardinalityClass() CardinalityClassLike {
-	return ast.CardinalityClass()
-}
-
-func Cardinality(
-	any_ any,
-) CardinalityLike {
-	return CardinalityClass().Cardinality(
-		any_,
+		optionalContext,
 	)
 }
 
@@ -240,6 +228,18 @@ func Constant(
 	return ConstantClass().Constant(
 		delimiter,
 		symbol,
+	)
+}
+
+func ContextClass() ContextClassLike {
+	return ast.ContextClass()
+}
+
+func Context(
+	any_ any,
+) ContextLike {
+	return ContextClass().Context(
+		any_,
 	)
 }
 
