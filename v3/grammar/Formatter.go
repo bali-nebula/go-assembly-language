@@ -120,8 +120,8 @@ func (v *formatter_) ProcessCallSlot(
 	}
 }
 
-func (v *formatter_) PreprocessConditionally(
-	conditionally ast.ConditionallyLike,
+func (v *formatter_) PreprocessCondition(
+	condition ast.ConditionLike,
 	index_ uint,
 	count_ uint,
 ) {

@@ -111,15 +111,15 @@ type ComponentClassLike interface {
 }
 
 /*
-ConditionallyClassLike is a class interface that declares the
+ConditionClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete conditionally-like class.
+supported by each concrete condition-like class.
 */
-type ConditionallyClassLike interface {
+type ConditionClassLike interface {
 	// Constructor Methods
-	Conditionally(
+	Condition(
 		any_ any,
-	) ConditionallyLike
+	) ConditionLike
 }
 
 /*
@@ -209,7 +209,7 @@ type JumpClassLike interface {
 	Jump(
 		delimiter string,
 		label string,
-		optionalConditionally ConditionallyLike,
+		optionalCondition ConditionLike,
 	) JumpLike
 }
 
@@ -428,13 +428,13 @@ type ComponentLike interface {
 }
 
 /*
-ConditionallyLike is an instance interface that declares the
+ConditionLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete conditionally-like class.
+by each instance of a concrete condition-like class.
 */
-type ConditionallyLike interface {
+type ConditionLike interface {
 	// Principal Methods
-	GetClass() ConditionallyClassLike
+	GetClass() ConditionClassLike
 
 	// Attribute Methods
 	GetAny() any
@@ -535,7 +535,7 @@ type JumpLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetLabel() string
-	GetOptionalConditionally() ConditionallyLike
+	GetOptionalCondition() ConditionLike
 }
 
 /*

@@ -29,19 +29,19 @@ import (
 
 // Access Function
 
-func ConditionallyClass() ConditionallyClassLike {
-	return conditionallyClass()
+func ConditionClass() ConditionClassLike {
+	return conditionClass()
 }
 
 // Constructor Methods
 
-func (c *conditionallyClass_) Conditionally(
+func (c *conditionClass_) Condition(
 	any_ any,
-) ConditionallyLike {
+) ConditionLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &conditionally_{
+	var instance = &condition_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -52,13 +52,13 @@ func (c *conditionallyClass_) Conditionally(
 
 // Principal Methods
 
-func (v *conditionally_) GetClass() ConditionallyClassLike {
-	return conditionallyClass()
+func (v *condition_) GetClass() ConditionClassLike {
+	return conditionClass()
 }
 
 // Attribute Methods
 
-func (v *conditionally_) GetAny() any {
+func (v *condition_) GetAny() any {
 	return v.any_
 }
 
@@ -66,23 +66,23 @@ func (v *conditionally_) GetAny() any {
 
 // Instance Structure
 
-type conditionally_ struct {
+type condition_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type conditionallyClass_ struct {
+type conditionClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func conditionallyClass() *conditionallyClass_ {
-	return conditionallyClassReference_
+func conditionClass() *conditionClass_ {
+	return conditionClassReference_
 }
 
-var conditionallyClassReference_ = &conditionallyClass_{
+var conditionClassReference_ = &conditionClass_{
 	// Initialize the class constants.
 }

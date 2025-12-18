@@ -295,11 +295,11 @@ func (v *visitor_) visitComponent(
 	}
 }
 
-func (v *visitor_) visitConditionally(
-	conditionally ast.ConditionallyLike,
+func (v *visitor_) visitCondition(
+	condition ast.ConditionLike,
 ) {
-	// Visit the possible conditionally literal values.
-	var actual = conditionally.GetAny().(string)
+	// Visit the possible condition literal values.
+	var actual = condition.GetAny().(string)
 	switch actual {
 	case "ON NONE":
 		v.processor_.ProcessDelimiter("ON NONE")
@@ -461,16 +461,16 @@ func (v *visitor_) visitJump(
 		2,
 	)
 
-	var optionalConditionally = jump.GetOptionalConditionally()
-	if uti.IsDefined(optionalConditionally) {
-		v.processor_.PreprocessConditionally(
-			optionalConditionally,
+	var optionalCondition = jump.GetOptionalCondition()
+	if uti.IsDefined(optionalCondition) {
+		v.processor_.PreprocessCondition(
+			optionalCondition,
 			0,
 			0,
 		)
-		v.visitConditionally(optionalConditionally)
-		v.processor_.PostprocessConditionally(
-			optionalConditionally,
+		v.visitCondition(optionalCondition)
+		v.processor_.PostprocessCondition(
+			optionalCondition,
 			0,
 			0,
 		)

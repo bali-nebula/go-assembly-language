@@ -365,18 +365,18 @@ type Methodical interface {
 		component ast.ComponentLike,
 		slot_ uint,
 	)
-	PreprocessConditionally(
-		conditionally ast.ConditionallyLike,
+	PreprocessCondition(
+		condition ast.ConditionLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessConditionally(
-		conditionally ast.ConditionallyLike,
+	PostprocessCondition(
+		condition ast.ConditionLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessConditionallySlot(
-		conditionally ast.ConditionallyLike,
+	ProcessConditionSlot(
+		condition ast.ConditionLike,
 		slot_ uint,
 	)
 	PreprocessConstant(

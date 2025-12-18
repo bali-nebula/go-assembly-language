@@ -187,22 +187,22 @@ func (v *processor_) ProcessComponentSlot(
 ) {
 }
 
-func (v *processor_) PreprocessConditionally(
-	conditionally ast.ConditionallyLike,
+func (v *processor_) PreprocessCondition(
+	condition ast.ConditionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessConditionally(
-	conditionally ast.ConditionallyLike,
+func (v *processor_) PostprocessCondition(
+	condition ast.ConditionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessConditionallySlot(
-	conditionally ast.ConditionallyLike,
+func (v *processor_) ProcessConditionSlot(
+	condition ast.ConditionLike,
 	slot_ uint,
 ) {
 }

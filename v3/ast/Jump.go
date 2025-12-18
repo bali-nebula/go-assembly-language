@@ -38,7 +38,7 @@ func JumpClass() JumpClassLike {
 func (c *jumpClass_) Jump(
 	delimiter string,
 	label string,
-	optionalConditionally ConditionallyLike,
+	optionalCondition ConditionLike,
 ) JumpLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
@@ -48,9 +48,9 @@ func (c *jumpClass_) Jump(
 	}
 	var instance = &jump_{
 		// Initialize the instance attributes.
-		delimiter_:             delimiter,
-		label_:                 label,
-		optionalConditionally_: optionalConditionally,
+		delimiter_:         delimiter,
+		label_:             label,
+		optionalCondition_: optionalCondition,
 	}
 	return instance
 }
@@ -73,8 +73,8 @@ func (v *jump_) GetLabel() string {
 	return v.label_
 }
 
-func (v *jump_) GetOptionalConditionally() ConditionallyLike {
-	return v.optionalConditionally_
+func (v *jump_) GetOptionalCondition() ConditionLike {
+	return v.optionalCondition_
 }
 
 // PROTECTED INTERFACE
@@ -83,9 +83,9 @@ func (v *jump_) GetOptionalConditionally() ConditionallyLike {
 
 type jump_ struct {
 	// Declare the instance attributes.
-	delimiter_             string
-	label_                 string
-	optionalConditionally_ ConditionallyLike
+	delimiter_         string
+	label_             string
+	optionalCondition_ ConditionLike
 }
 
 // Class Structure

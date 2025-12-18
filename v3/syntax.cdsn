@@ -44,9 +44,9 @@ $Note: "NOTE" description
 
 $Skip: "SKIP"
 
-$Jump: "JUMP TO" label Conditionally?
+$Jump: "JUMP TO" label Condition?
 
-$Conditionally:
+$Condition:
     "ON NONE"
     "ON FALSE"
     "ON EMPTY"

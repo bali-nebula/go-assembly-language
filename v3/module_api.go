@@ -41,57 +41,57 @@ import (
 // Ast
 
 type (
-	ActionClassLike        = ast.ActionClassLike
-	ArgumentClassLike      = ast.ArgumentClassLike
-	AssemblyClassLike      = ast.AssemblyClassLike
-	CallClassLike          = ast.CallClassLike
-	ComponentClassLike     = ast.ComponentClassLike
-	ConditionallyClassLike = ast.ConditionallyClassLike
-	ConstantClassLike      = ast.ConstantClassLike
-	ContextClassLike       = ast.ContextClassLike
-	DestinationClassLike   = ast.DestinationClassLike
-	DropClassLike          = ast.DropClassLike
-	HandlerClassLike       = ast.HandlerClassLike
-	InstructionClassLike   = ast.InstructionClassLike
-	JumpClassLike          = ast.JumpClassLike
-	LiteralClassLike       = ast.LiteralClassLike
-	LoadClassLike          = ast.LoadClassLike
-	NoteClassLike          = ast.NoteClassLike
-	PrefixClassLike        = ast.PrefixClassLike
-	PullClassLike          = ast.PullClassLike
-	PushClassLike          = ast.PushClassLike
-	SaveClassLike          = ast.SaveClassLike
-	SendClassLike          = ast.SendClassLike
-	SkipClassLike          = ast.SkipClassLike
-	SourceClassLike        = ast.SourceClassLike
-	ValueClassLike         = ast.ValueClassLike
+	ActionClassLike      = ast.ActionClassLike
+	ArgumentClassLike    = ast.ArgumentClassLike
+	AssemblyClassLike    = ast.AssemblyClassLike
+	CallClassLike        = ast.CallClassLike
+	ComponentClassLike   = ast.ComponentClassLike
+	ConditionClassLike   = ast.ConditionClassLike
+	ConstantClassLike    = ast.ConstantClassLike
+	ContextClassLike     = ast.ContextClassLike
+	DestinationClassLike = ast.DestinationClassLike
+	DropClassLike        = ast.DropClassLike
+	HandlerClassLike     = ast.HandlerClassLike
+	InstructionClassLike = ast.InstructionClassLike
+	JumpClassLike        = ast.JumpClassLike
+	LiteralClassLike     = ast.LiteralClassLike
+	LoadClassLike        = ast.LoadClassLike
+	NoteClassLike        = ast.NoteClassLike
+	PrefixClassLike      = ast.PrefixClassLike
+	PullClassLike        = ast.PullClassLike
+	PushClassLike        = ast.PushClassLike
+	SaveClassLike        = ast.SaveClassLike
+	SendClassLike        = ast.SendClassLike
+	SkipClassLike        = ast.SkipClassLike
+	SourceClassLike      = ast.SourceClassLike
+	ValueClassLike       = ast.ValueClassLike
 )
 
 type (
-	ActionLike        = ast.ActionLike
-	ArgumentLike      = ast.ArgumentLike
-	AssemblyLike      = ast.AssemblyLike
-	CallLike          = ast.CallLike
-	ComponentLike     = ast.ComponentLike
-	ConditionallyLike = ast.ConditionallyLike
-	ConstantLike      = ast.ConstantLike
-	ContextLike       = ast.ContextLike
-	DestinationLike   = ast.DestinationLike
-	DropLike          = ast.DropLike
-	HandlerLike       = ast.HandlerLike
-	InstructionLike   = ast.InstructionLike
-	JumpLike          = ast.JumpLike
-	LiteralLike       = ast.LiteralLike
-	LoadLike          = ast.LoadLike
-	NoteLike          = ast.NoteLike
-	PrefixLike        = ast.PrefixLike
-	PullLike          = ast.PullLike
-	PushLike          = ast.PushLike
-	SaveLike          = ast.SaveLike
-	SendLike          = ast.SendLike
-	SkipLike          = ast.SkipLike
-	SourceLike        = ast.SourceLike
-	ValueLike         = ast.ValueLike
+	ActionLike      = ast.ActionLike
+	ArgumentLike    = ast.ArgumentLike
+	AssemblyLike    = ast.AssemblyLike
+	CallLike        = ast.CallLike
+	ComponentLike   = ast.ComponentLike
+	ConditionLike   = ast.ConditionLike
+	ConstantLike    = ast.ConstantLike
+	ContextLike     = ast.ContextLike
+	DestinationLike = ast.DestinationLike
+	DropLike        = ast.DropLike
+	HandlerLike     = ast.HandlerLike
+	InstructionLike = ast.InstructionLike
+	JumpLike        = ast.JumpLike
+	LiteralLike     = ast.LiteralLike
+	LoadLike        = ast.LoadLike
+	NoteLike        = ast.NoteLike
+	PrefixLike      = ast.PrefixLike
+	PullLike        = ast.PullLike
+	PushLike        = ast.PushLike
+	SaveLike        = ast.SaveLike
+	SendLike        = ast.SendLike
+	SkipLike        = ast.SkipLike
+	SourceLike      = ast.SourceLike
+	ValueLike       = ast.ValueLike
 )
 
 // Grammar
@@ -205,14 +205,14 @@ func Component(
 	)
 }
 
-func ConditionallyClass() ConditionallyClassLike {
-	return ast.ConditionallyClass()
+func ConditionClass() ConditionClassLike {
+	return ast.ConditionClass()
 }
 
-func Conditionally(
+func Condition(
 	any_ any,
-) ConditionallyLike {
-	return ConditionallyClass().Conditionally(
+) ConditionLike {
+	return ConditionClass().Condition(
 		any_,
 	)
 }
@@ -306,12 +306,12 @@ func JumpClass() JumpClassLike {
 func Jump(
 	delimiter string,
 	label string,
-	optionalConditionally ast.ConditionallyLike,
+	optionalCondition ast.ConditionLike,
 ) JumpLike {
 	return JumpClass().Jump(
 		delimiter,
 		label,
-		optionalConditionally,
+		optionalCondition,
 	)
 }
 

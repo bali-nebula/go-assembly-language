@@ -377,8 +377,8 @@ func (v *parser_) parseComponent() (
 	return
 }
 
-func (v *parser_) parseConditionally() (
-	conditionally ast.ConditionallyLike,
+func (v *parser_) parseCondition() (
+	condition ast.ConditionLike,
 	token TokenLike,
 	ok bool,
 ) {
@@ -388,7 +388,7 @@ func (v *parser_) parseConditionally() (
 	delimiter, token, ok = v.parseDelimiter("ON NONE")
 	if ok {
 		// Found a single "ON NONE" delimiter.
-		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
+		condition = ast.ConditionClass().Condition(delimiter)
 		return
 	}
 
@@ -396,7 +396,7 @@ func (v *parser_) parseConditionally() (
 	delimiter, token, ok = v.parseDelimiter("ON FALSE")
 	if ok {
 		// Found a single "ON FALSE" delimiter.
-		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
+		condition = ast.ConditionClass().Condition(delimiter)
 		return
 	}
 
@@ -404,11 +404,11 @@ func (v *parser_) parseConditionally() (
 	delimiter, token, ok = v.parseDelimiter("ON EMPTY")
 	if ok {
 		// Found a single "ON EMPTY" delimiter.
-		conditionally = ast.ConditionallyClass().Conditionally(delimiter)
+		condition = ast.ConditionClass().Condition(delimiter)
 		return
 	}
 
-	// This is not a single Conditionally rule.
+	// This is not a single Condition rule.
 	return
 }
 
@@ -754,9 +754,9 @@ func (v *parser_) parseJump() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse an optional Conditionally rule.
-	var optionalConditionally ast.ConditionallyLike
-	optionalConditionally, token, ok = v.parseConditionally()
+	// Attempt to parse an optional Condition rule.
+	var optionalCondition ast.ConditionLike
+	optionalCondition, token, ok = v.parseCondition()
 	if ok {
 		// Found a multiexpression token.
 		if uti.IsDefined(tokens) {
@@ -770,7 +770,7 @@ func (v *parser_) parseJump() (
 	jump = ast.JumpClass().Jump(
 		delimiter,
 		label,
-		optionalConditionally,
+		optionalCondition,
 	)
 	return
 }
@@ -1589,8 +1589,8 @@ var parserClassReference_ = &parserClass_{
     Send`,
 			"$Note": `"NOTE" description`,
 			"$Skip": `"SKIP"`,
-			"$Jump": `"JUMP TO" label Conditionally?`,
-			"$Conditionally": `
+			"$Jump": `"JUMP TO" label Condition?`,
+			"$Condition": `
     "ON NONE"
     "ON FALSE"
     "ON EMPTY"`,
