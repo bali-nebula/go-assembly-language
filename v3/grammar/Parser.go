@@ -341,6 +341,14 @@ func (v *parser_) parseComponent() (
 ) {
 	var delimiter string
 
+	// Attempt to parse a single "VARIABLE" delimiter.
+	delimiter, token, ok = v.parseDelimiter("VARIABLE")
+	if ok {
+		// Found a single "VARIABLE" delimiter.
+		component = ast.ComponentClass().Component(delimiter)
+		return
+	}
+
 	// Attempt to parse a single "DRAFT" delimiter.
 	delimiter, token, ok = v.parseDelimiter("DRAFT")
 	if ok {
@@ -365,14 +373,6 @@ func (v *parser_) parseComponent() (
 		return
 	}
 
-	// Attempt to parse a single "VARIABLE" delimiter.
-	delimiter, token, ok = v.parseDelimiter("VARIABLE")
-	if ok {
-		// Found a single "VARIABLE" delimiter.
-		component = ast.ComponentClass().Component(delimiter)
-		return
-	}
-
 	// This is not a single Component rule.
 	return
 }
@@ -383,6 +383,14 @@ func (v *parser_) parseCondition() (
 	ok bool,
 ) {
 	var delimiter string
+
+	// Attempt to parse a single "ON EMPTY" delimiter.
+	delimiter, token, ok = v.parseDelimiter("ON EMPTY")
+	if ok {
+		// Found a single "ON EMPTY" delimiter.
+		condition = ast.ConditionClass().Condition(delimiter)
+		return
+	}
 
 	// Attempt to parse a single "ON NONE" delimiter.
 	delimiter, token, ok = v.parseDelimiter("ON NONE")
@@ -396,14 +404,6 @@ func (v *parser_) parseCondition() (
 	delimiter, token, ok = v.parseDelimiter("ON FALSE")
 	if ok {
 		// Found a single "ON FALSE" delimiter.
-		condition = ast.ConditionClass().Condition(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "ON EMPTY" delimiter.
-	delimiter, token, ok = v.parseDelimiter("ON EMPTY")
-	if ok {
-		// Found a single "ON EMPTY" delimiter.
 		condition = ast.ConditionClass().Condition(delimiter)
 		return
 	}
@@ -1591,9 +1591,9 @@ var parserClassReference_ = &parserClass_{
 			"$Skip": `"SKIP"`,
 			"$Jump": `"JUMP TO" label Condition?`,
 			"$Condition": `
+    "ON EMPTY"
     "ON NONE"
-    "ON FALSE"
-    "ON EMPTY"`,
+    "ON FALSE"`,
 			"$Push": `"PUSH" Source`,
 			"$Source": `
     Literal
@@ -1614,10 +1614,10 @@ var parserClassReference_ = &parserClass_{
 			"$Save": `"SAVE" Component symbol`,
 			"$Drop": `"DROP" Component symbol`,
 			"$Component": `
+    "VARIABLE"
     "DRAFT"
     "DOCUMENT"
-    "MESSAGE"
-    "VARIABLE"`,
+    "MESSAGE"`,
 			"$Call": `"CALL" symbol Context?`,
 			"$Context": `
     "WITH 1 ARGUMENT"

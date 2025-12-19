@@ -284,14 +284,14 @@ func (v *visitor_) visitComponent(
 	// Visit the possible component literal values.
 	var actual = component.GetAny().(string)
 	switch actual {
+	case "VARIABLE":
+		v.processor_.ProcessDelimiter("VARIABLE")
 	case "DRAFT":
 		v.processor_.ProcessDelimiter("DRAFT")
 	case "DOCUMENT":
 		v.processor_.ProcessDelimiter("DOCUMENT")
 	case "MESSAGE":
 		v.processor_.ProcessDelimiter("MESSAGE")
-	case "VARIABLE":
-		v.processor_.ProcessDelimiter("VARIABLE")
 	}
 }
 
@@ -301,12 +301,12 @@ func (v *visitor_) visitCondition(
 	// Visit the possible condition literal values.
 	var actual = condition.GetAny().(string)
 	switch actual {
+	case "ON EMPTY":
+		v.processor_.ProcessDelimiter("ON EMPTY")
 	case "ON NONE":
 		v.processor_.ProcessDelimiter("ON NONE")
 	case "ON FALSE":
 		v.processor_.ProcessDelimiter("ON FALSE")
-	case "ON EMPTY":
-		v.processor_.ProcessDelimiter("ON EMPTY")
 	}
 }
 

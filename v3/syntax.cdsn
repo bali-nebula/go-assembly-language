@@ -47,9 +47,9 @@ $Skip: "SKIP"
 $Jump: "JUMP TO" label Condition?
 
 $Condition:
+    "ON EMPTY"
     "ON NONE"
     "ON FALSE"
-    "ON EMPTY"
 
 $Push: "PUSH" Source
 
@@ -82,10 +82,10 @@ $Save: "SAVE" Component symbol
 $Drop: "DROP" Component symbol
 
 $Component:
+    "VARIABLE"
     "DRAFT"
     "DOCUMENT"
     "MESSAGE"
-    "VARIABLE"
 
 $Call: "CALL" symbol Context?
 
