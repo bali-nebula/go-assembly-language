@@ -22,7 +22,7 @@ For more information on CDSN see the wiki at:
 │                               RULE DEFINITIONS                               │
 └──────────────────────────────────────────────────────────────────────────────┘
 <!
-$Assembly: Instruction+
+$Method: Instruction+
 
 $Instruction: Prefix? Action
 

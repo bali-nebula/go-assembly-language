@@ -57,7 +57,7 @@ func (v *parser_) GetClass() ParserClassLike {
 
 func (v *parser_) ParseSource(
 	source string,
-) ast.AssemblyLike {
+) ast.MethodLike {
 	v.source_ = sts.ReplaceAll(source, "\t", "    ")
 	v.tokens_ = com.Queue[TokenLike]()
 	v.next_ = com.Stack[TokenLike]()
@@ -65,13 +65,13 @@ func (v *parser_) ParseSource(
 	// The scanner runs in a separate Go routine.
 	ScannerClass().Scanner(v.source_, v.tokens_)
 
-	// Attempt to parse the assembly.
-	var assembly, token, ok = v.parseAssembly()
+	// Attempt to parse the method.
+	var method, token, ok = v.parseMethod()
 	if !ok || v.tokens_.GetSize() > 1 {
-		var message = v.formatError("$Assembly", token)
+		var message = v.formatError("$Method", token)
 		panic(message)
 	}
-	return assembly
+	return method
 }
 
 // PROTECTED INTERFACE
@@ -227,46 +227,6 @@ func (v *parser_) parseArgument() (
 		delimiter,
 		symbol,
 	)
-	return
-}
-
-func (v *parser_) parseAssembly() (
-	assembly ast.AssemblyLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = com.List[TokenLike]()
-
-	// Attempt to parse multiple Instruction rules.
-	var instructions = com.List[ast.InstructionLike]()
-instructionsLoop:
-	for count_ := 0; count_ < mat.MaxInt; count_++ {
-		var instruction ast.InstructionLike
-		instruction, token, ok = v.parseInstruction()
-		if !ok {
-			switch {
-			case count_ >= 1:
-				break instructionsLoop
-			case uti.IsDefined(tokens):
-				// This is not multiple Instruction rules.
-				v.putBack(tokens)
-				return
-			default:
-				// Found a syntax error.
-				var message = v.formatError("$Assembly", token)
-				message += "1 or more Instruction rules are required."
-				panic(message)
-			}
-		}
-		// No additional put backs allowed at this point.
-		tokens = nil
-		instructions.AppendValue(instruction)
-	}
-
-	// Found a single Assembly rule.
-	ok = true
-	v.remove(tokens)
-	assembly = ast.AssemblyClass().Assembly(instructions)
 	return
 }
 
@@ -898,6 +858,46 @@ func (v *parser_) parseLoad() (
 		component,
 		symbol,
 	)
+	return
+}
+
+func (v *parser_) parseMethod() (
+	method ast.MethodLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = com.List[TokenLike]()
+
+	// Attempt to parse multiple Instruction rules.
+	var instructions = com.List[ast.InstructionLike]()
+instructionsLoop:
+	for count_ := 0; count_ < mat.MaxInt; count_++ {
+		var instruction ast.InstructionLike
+		instruction, token, ok = v.parseInstruction()
+		if !ok {
+			switch {
+			case count_ >= 1:
+				break instructionsLoop
+			case uti.IsDefined(tokens):
+				// This is not multiple Instruction rules.
+				v.putBack(tokens)
+				return
+			default:
+				// Found a syntax error.
+				var message = v.formatError("$Method", token)
+				message += "1 or more Instruction rules are required."
+				panic(message)
+			}
+		}
+		// No additional put backs allowed at this point.
+		tokens = nil
+		instructions.AppendValue(instruction)
+	}
+
+	// Found a single Method rule.
+	ok = true
+	v.remove(tokens)
+	method = ast.MethodClass().Method(instructions)
 	return
 }
 
@@ -1573,7 +1573,7 @@ var parserClassReference_ = &parserClass_{
 	// Initialize the class constants.
 	syntax_: com.CatalogFromMap[string, string](
 		map[string]string{
-			"$Assembly":    `Instruction+`,
+			"$Method":      `Instruction+`,
 			"$Instruction": `Prefix? Action`,
 			"$Prefix":      `label ":"`,
 			"$Action": `

@@ -30,19 +30,19 @@ import (
 
 // Access Function
 
-func AssemblyClass() AssemblyClassLike {
-	return assemblyClass()
+func MethodClass() MethodClassLike {
+	return methodClass()
 }
 
 // Constructor Methods
 
-func (c *assemblyClass_) Assembly(
+func (c *methodClass_) Method(
 	instructions com.Sequential[InstructionLike],
-) AssemblyLike {
+) MethodLike {
 	if uti.IsUndefined(instructions) {
 		panic("The \"instructions\" attribute is required by this class.")
 	}
-	var instance = &assembly_{
+	var instance = &method_{
 		// Initialize the instance attributes.
 		instructions_: instructions,
 	}
@@ -53,13 +53,13 @@ func (c *assemblyClass_) Assembly(
 
 // Principal Methods
 
-func (v *assembly_) GetClass() AssemblyClassLike {
-	return assemblyClass()
+func (v *method_) GetClass() MethodClassLike {
+	return methodClass()
 }
 
 // Attribute Methods
 
-func (v *assembly_) GetInstructions() com.Sequential[InstructionLike] {
+func (v *method_) GetInstructions() com.Sequential[InstructionLike] {
 	return v.instructions_
 }
 
@@ -67,23 +67,23 @@ func (v *assembly_) GetInstructions() com.Sequential[InstructionLike] {
 
 // Instance Structure
 
-type assembly_ struct {
+type method_ struct {
 	// Declare the instance attributes.
 	instructions_ com.Sequential[InstructionLike]
 }
 
 // Class Structure
 
-type assemblyClass_ struct {
+type methodClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func assemblyClass() *assemblyClass_ {
-	return assemblyClassReference_
+func methodClass() *methodClass_ {
+	return methodClassReference_
 }
 
-var assemblyClassReference_ = &assemblyClass_{
+var methodClassReference_ = &methodClass_{
 	// Initialize the class constants.
 }

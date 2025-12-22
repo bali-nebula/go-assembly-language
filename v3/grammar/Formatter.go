@@ -54,8 +54,8 @@ func (v *formatter_) GetClass() FormatterClassLike {
 	return formatterClass()
 }
 
-func (v *formatter_) FormatAssembly(assembly ast.AssemblyLike) string {
-	VisitorClass().Visitor(v).VisitAssembly(assembly)
+func (v *formatter_) FormatMethod(method ast.MethodLike) string {
+	VisitorClass().Visitor(v).VisitMethod(method)
 	return v.getResult()
 }
 

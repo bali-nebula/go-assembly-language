@@ -6,7 +6,7 @@
 This project was automatically generated based on the Crater Dog Syntax Notation™
 (CDSN) file located
 [here](https://github.com/bali-nebula/go-assembly-language/blob/main/v3/syntax.cdsn).
-It provides a framework for parsing, manipulating and formatting documents
+It provides a framework for parsing, manipulating and formatting methods
 containing Bali Assembly Language™ (BASM) which can then be assembled into
 bytecode that runs on the Bali Virtual Machine™ (BVM) running in the Bali
 Nebula™ cloud environment.

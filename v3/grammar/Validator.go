@@ -54,10 +54,10 @@ func (v *validator_) GetClass() ValidatorClassLike {
 	return validatorClass()
 }
 
-func (v *validator_) ValidateAssembly(
-	assembly ast.AssemblyLike,
+func (v *validator_) ValidateMethod(
+	method ast.MethodLike,
 ) {
-	VisitorClass().Visitor(v).VisitAssembly(assembly)
+	VisitorClass().Visitor(v).VisitMethod(method)
 }
 
 // Methodical Methods

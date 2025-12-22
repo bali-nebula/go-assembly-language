@@ -127,26 +127,6 @@ func (v *processor_) ProcessArgumentSlot(
 ) {
 }
 
-func (v *processor_) PreprocessAssembly(
-	assembly ast.AssemblyLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessAssembly(
-	assembly ast.AssemblyLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessAssemblySlot(
-	assembly ast.AssemblyLike,
-	slot_ uint,
-) {
-}
-
 func (v *processor_) PreprocessCall(
 	call ast.CallLike,
 	index_ uint,
@@ -383,6 +363,26 @@ func (v *processor_) PostprocessLoad(
 
 func (v *processor_) ProcessLoadSlot(
 	load ast.LoadLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessMethod(
+	method ast.MethodLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessMethod(
+	method ast.MethodLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessMethodSlot(
+	method ast.MethodLike,
 	slot_ uint,
 ) {
 }

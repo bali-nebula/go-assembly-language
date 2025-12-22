@@ -43,7 +43,6 @@ import (
 type (
 	ActionClassLike      = ast.ActionClassLike
 	ArgumentClassLike    = ast.ArgumentClassLike
-	AssemblyClassLike    = ast.AssemblyClassLike
 	CallClassLike        = ast.CallClassLike
 	ComponentClassLike   = ast.ComponentClassLike
 	ConditionClassLike   = ast.ConditionClassLike
@@ -56,6 +55,7 @@ type (
 	JumpClassLike        = ast.JumpClassLike
 	LiteralClassLike     = ast.LiteralClassLike
 	LoadClassLike        = ast.LoadClassLike
+	MethodClassLike      = ast.MethodClassLike
 	NoteClassLike        = ast.NoteClassLike
 	PrefixClassLike      = ast.PrefixClassLike
 	PullClassLike        = ast.PullClassLike
@@ -70,7 +70,6 @@ type (
 type (
 	ActionLike      = ast.ActionLike
 	ArgumentLike    = ast.ArgumentLike
-	AssemblyLike    = ast.AssemblyLike
 	CallLike        = ast.CallLike
 	ComponentLike   = ast.ComponentLike
 	ConditionLike   = ast.ConditionLike
@@ -83,6 +82,7 @@ type (
 	JumpLike        = ast.JumpLike
 	LiteralLike     = ast.LiteralLike
 	LoadLike        = ast.LoadLike
+	MethodLike      = ast.MethodLike
 	NoteLike        = ast.NoteLike
 	PrefixLike      = ast.PrefixLike
 	PullLike        = ast.PullLike
@@ -162,18 +162,6 @@ func Argument(
 	return ArgumentClass().Argument(
 		delimiter,
 		symbol,
-	)
-}
-
-func AssemblyClass() AssemblyClassLike {
-	return ast.AssemblyClass()
-}
-
-func Assembly(
-	instructions com.Sequential[ast.InstructionLike],
-) AssemblyLike {
-	return AssemblyClass().Assembly(
-		instructions,
 	)
 }
 
@@ -342,6 +330,18 @@ func Load(
 		delimiter,
 		component,
 		symbol,
+	)
+}
+
+func MethodClass() MethodClassLike {
+	return ast.MethodClass()
+}
+
+func Method(
+	instructions com.Sequential[ast.InstructionLike],
+) MethodLike {
+	return MethodClass().Method(
+		instructions,
 	)
 }
 
@@ -551,11 +551,11 @@ func Visitor(
 
 // GLOBAL FUNCTIONS
 
-func FormatAssembly(
-	syntax AssemblyLike,
+func FormatMethod(
+	method MethodLike,
 ) string {
 	var formatter = Formatter()
-	return formatter.FormatAssembly(syntax)
+	return formatter.FormatMethod(method)
 }
 
 func MatchesType(
@@ -568,14 +568,14 @@ func MatchesType(
 
 func ParseSource(
 	source string,
-) AssemblyLike {
+) MethodLike {
 	var parser = Parser()
 	return parser.ParseSource(source)
 }
 
-func ValidateAssembly(
-	syntax AssemblyLike,
+func ValidateMethod(
+	method MethodLike,
 ) {
 	var validator = Validator()
-	validator.ValidateAssembly(syntax)
+	validator.ValidateMethod(method)
 }

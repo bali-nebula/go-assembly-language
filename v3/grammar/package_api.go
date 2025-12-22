@@ -178,8 +178,8 @@ instance of a concrete formatter-like class.
 type FormatterLike interface {
 	// Principal Methods
 	GetClass() FormatterClassLike
-	FormatAssembly(
-		assembly ast.AssemblyLike,
+	FormatMethod(
+		method ast.MethodLike,
 	) string
 
 	// Aspect Interfaces
@@ -196,7 +196,7 @@ type ParserLike interface {
 	GetClass() ParserClassLike
 	ParseSource(
 		source string,
-	) ast.AssemblyLike
+	) ast.MethodLike
 }
 
 /*
@@ -246,8 +246,8 @@ instance of a concrete validator-like class.
 type ValidatorLike interface {
 	// Principal Methods
 	GetClass() ValidatorClassLike
-	ValidateAssembly(
-		assembly ast.AssemblyLike,
+	ValidateMethod(
+		method ast.MethodLike,
 	)
 
 	// Aspect Interfaces
@@ -262,8 +262,8 @@ instance of a concrete visitor-like class.
 type VisitorLike interface {
 	// Principal Methods
 	GetClass() VisitorClassLike
-	VisitAssembly(
-		assembly ast.AssemblyLike,
+	VisitMethod(
+		method ast.MethodLike,
 	)
 }
 
@@ -321,20 +321,6 @@ type Methodical interface {
 	)
 	ProcessArgumentSlot(
 		argument ast.ArgumentLike,
-		slot_ uint,
-	)
-	PreprocessAssembly(
-		assembly ast.AssemblyLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessAssembly(
-		assembly ast.AssemblyLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessAssemblySlot(
-		assembly ast.AssemblyLike,
 		slot_ uint,
 	)
 	PreprocessCall(
@@ -503,6 +489,20 @@ type Methodical interface {
 	)
 	ProcessLoadSlot(
 		load ast.LoadLike,
+		slot_ uint,
+	)
+	PreprocessMethod(
+		method ast.MethodLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessMethod(
+		method ast.MethodLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessMethodSlot(
+		method ast.MethodLike,
 		slot_ uint,
 	)
 	PreprocessNote(

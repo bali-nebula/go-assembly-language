@@ -57,17 +57,17 @@ func (v *visitor_) GetClass() VisitorClassLike {
 	return visitorClass()
 }
 
-func (v *visitor_) VisitAssembly(
-	assembly ast.AssemblyLike,
+func (v *visitor_) VisitMethod(
+	method ast.MethodLike,
 ) {
-	v.processor_.PreprocessAssembly(
-		assembly,
+	v.processor_.PreprocessMethod(
+		method,
 		0,
 		0,
 	)
-	v.visitAssembly(assembly)
-	v.processor_.PostprocessAssembly(
-		assembly,
+	v.visitMethod(method)
+	v.processor_.PostprocessMethod(
+		method,
 		0,
 		0,
 	)
@@ -218,29 +218,6 @@ func (v *visitor_) visitArgument(
 
 	var symbol = argument.GetSymbol()
 	v.processor_.ProcessSymbol(symbol)
-}
-
-func (v *visitor_) visitAssembly(
-	assembly ast.AssemblyLike,
-) {
-	var instructionsIndex uint
-	var instructions = assembly.GetInstructions().GetIterator()
-	var instructionsCount = uint(instructions.GetSize())
-	for instructions.HasNext() {
-		instructionsIndex++
-		var rule = instructions.GetNext()
-		v.processor_.PreprocessInstruction(
-			rule,
-			instructionsIndex,
-			instructionsCount,
-		)
-		v.visitInstruction(rule)
-		v.processor_.PostprocessInstruction(
-			rule,
-			instructionsIndex,
-			instructionsCount,
-		)
-	}
 }
 
 func (v *visitor_) visitCall(
@@ -523,6 +500,29 @@ func (v *visitor_) visitLoad(
 
 	var symbol = load.GetSymbol()
 	v.processor_.ProcessSymbol(symbol)
+}
+
+func (v *visitor_) visitMethod(
+	method ast.MethodLike,
+) {
+	var instructionsIndex uint
+	var instructions = method.GetInstructions().GetIterator()
+	var instructionsCount = uint(instructions.GetSize())
+	for instructions.HasNext() {
+		instructionsIndex++
+		var rule = instructions.GetNext()
+		v.processor_.PreprocessInstruction(
+			rule,
+			instructionsIndex,
+			instructionsCount,
+		)
+		v.visitInstruction(rule)
+		v.processor_.PostprocessInstruction(
+			rule,
+			instructionsIndex,
+			instructionsCount,
+		)
+	}
 }
 
 func (v *visitor_) visitNote(
